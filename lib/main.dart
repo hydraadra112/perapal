@@ -22,8 +22,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String username = "";
   String password = "";
-  String correctName = "admin"; // Change this to the correct username
-  String correctPass = "password"; // Change this to the correct password
+  String correctName = "admin";
+  String correctPass = "password";
 
   @override
   Widget build(BuildContext context) {
