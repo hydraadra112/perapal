@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import './sign_up.dart';
+import './home_page.dart';
 
 void main() {
   runApp(LoginApp());
@@ -28,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Center(
         child: Column(
 
@@ -200,44 +202,6 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Welcome"),
-      ),
-      body: const Center(
-        child: Text(
-          "Welcome to the next page!",
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SignUpPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Welcome!")),
-      body: const Center(
-        child: Text(
-          "Welcome to the SignUp Page", 
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          )
-          )
-      )
     );
   }
 }
