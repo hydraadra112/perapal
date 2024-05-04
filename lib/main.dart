@@ -168,7 +168,8 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
                   child: Text('Login', 
                   style: TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255)
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    backgroundColor: Color.fromARGB(255, 78, 184, 233)
                   )
                   ),
                 ),
