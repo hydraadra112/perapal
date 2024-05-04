@@ -13,8 +13,10 @@ var textLight = const Color(0xffF0F0F0);
 var textDark = const Color(0xffF262626);
 
 // TextStyle
-TextStyle heading1 = GoogleFonts.poppins(
-  fontWeight: FontWeight.w600, color: textDark, fontSize: 20);
+TextStyle heading1L = GoogleFonts.poppins(
+  fontWeight: FontWeight.w600, color: textLight, fontSize: 20);
+TextStyle heading1D = GoogleFonts.poppins(
+  fontWeight: FontWeight.w600, color: textDark, fontSize: 20);  
 TextStyle heading2 = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textDark, fontSize: 18);
 TextStyle heading3 = GoogleFonts.poppins(
