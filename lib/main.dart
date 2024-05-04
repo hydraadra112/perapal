@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './sign_up.dart';
-import './home_page.dart';
+import './pages/dashboard.dart';
+import './pages/sign_up.dart';
 
 void main() {
   runApp(LoginApp());
@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomePage(),
+                        builder: (context) => const Dashboard(),
                       ),
                     );
                   } else {
