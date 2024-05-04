@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:perapal/utils/style.dart';
 
 class Expenses extends StatelessWidget {
   const Expenses({super.key});
@@ -9,12 +10,13 @@ class Expenses extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Expenses",
-        selectionColor: Colors.white,
+        style: heading1L,
+        selectionColor: textDark,
         ),
         elevation: 0,
-        backgroundColor: Colors.blue,
-      )
-      ,backgroundColor:Colors.purple ,
+        backgroundColor: red,
+        automaticallyImplyLeading: false
+    )
     );
     
   }
