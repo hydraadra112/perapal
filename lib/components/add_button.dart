@@ -9,7 +9,7 @@ class addButton extends StatelessWidget {
     return FloatingActionButton (child: Icon(Icons.add),
         foregroundColor: Colors.white,
         backgroundColor: Colors.blue,
-         
+        shape: const CircleBorder(),
         onPressed: (){
           Navigator.push(
             context, 

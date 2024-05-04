@@ -47,13 +47,22 @@ const Savings(),
         ),
       ),
       floatingActionButton: addButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: BottomNavigationBar(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30)
+     ),
+      child: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _navigateBottomBar,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         selectedItemColor: blue, // Customize selected item color
         unselectedItemColor: textDark, // Customize unselected item color
         backgroundColor: white,
+        type: BottomNavigationBarType.fixed,
+        elevation: 3,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -71,9 +80,9 @@ const Savings(),
             icon: Icon(Icons.savings),
             label: 'Savings',
           )
-          
         ]
-    )
+      )
+     ),
     );
   }
 }
