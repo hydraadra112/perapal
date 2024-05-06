@@ -17,10 +17,14 @@ TextStyle heading1L = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textLight, fontSize: 20);
 TextStyle heading1D = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textDark, fontSize: 20);  
-TextStyle heading2 = GoogleFonts.poppins(
+TextStyle heading2D = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textDark, fontSize: 18);
+  TextStyle heading2L = GoogleFonts.poppins(
+  fontWeight: FontWeight.w600, color: textLight, fontSize: 18);
 TextStyle heading3 = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textDark, fontSize: 16);
+  TextStyle heading4 = GoogleFonts.poppins(
+  fontWeight: FontWeight.w600, color: textDark, fontSize: 14);
 
 //Paragraph
 TextStyle pBold = GoogleFonts.poppins(
@@ -31,6 +35,7 @@ TextStyle p2 = GoogleFonts.poppins(
   color: textDark, fontSize: 12);
 
 //Gaps
+var large = 50.0;
 var medium = 30.0;
 var small = 14.0;
 var xsmall = 10.0;
