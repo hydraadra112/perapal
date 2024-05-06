@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 
 
-class header extends StatelessWidget {
-  const header({super.key});
+class Header extends StatelessWidget {
+  const Header({super.key});
 
   @override
   Widget build(BuildContext context) {
