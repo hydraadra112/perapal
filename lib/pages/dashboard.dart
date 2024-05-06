@@ -8,7 +8,17 @@ class Dashboard extends StatelessWidget {
 
 @override
   Widget build(BuildContext context) {
-    return const Scaffold();
-    
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(medium),
+        child: Column(
+          children: [
+            const TotalFund(),
+            SizedBox(height: large),
+              const BudgetView(),
+            ]
+          ),
+      ),
+    );
+    }
   }
-}
