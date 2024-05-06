@@ -41,14 +41,13 @@ const Savings(),
       body: SafeArea(
         child: Column(
           children: [
-            header(),
+            Header(),
             Expanded(child: _pages[_selectedIndex]), // Use Expanded to take remaining space
           ],
         ),
       ),
       floatingActionButton: addButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(30)
