@@ -7,17 +7,23 @@ class addButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton (child: Icon(Icons.add),
-        foregroundColor: white,
+    return FloatingActionButton (
+      foregroundColor: white,
         backgroundColor: blue,
-        shape: const CircleBorder(),
+        shape: StadiumBorder(
+          side: BorderSide(
+          color: textLight,
+        width: 4),
+        ),
         onPressed: (){
           Navigator.push(
             context, 
             MaterialPageRoute(
               builder: (context) => const AddingPage()),
               ); 
-        }
+        },
+      child: Icon(Icons.add, 
+        size: medium,)
         );      
   }
 }

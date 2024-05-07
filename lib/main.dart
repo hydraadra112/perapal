@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import './pages/home_page.dart';
 import './pages/sign_up.dart';
 import './utils/style.dart';
@@ -6,6 +7,7 @@ import 'package:perapal/components/input_box.dart';
 import 'package:perapal/components/button.dart'; // Import LoginButton widget
 
 void main() {
+  debugPaintSizeEnabled = false;
   runApp(LoginApp());
 }
 
