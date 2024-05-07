@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/expenses/expense_box.dart';
-import 'package:perapal/components/expenses/total_expense.dart'; 
+import 'package:perapal/components/cash_display.dart'; 
 
 class Expenses extends StatelessWidget {
   const Expenses({super.key});
@@ -29,7 +29,7 @@ class Expenses extends StatelessWidget {
 
               Padding(padding: EdgeInsets.only(top: medium)),
 
-              const TotalExpense(),
+              const CashDisplay(expenseName: "Total Expenses", cashValue: 50000.0),
 
               Padding(padding: EdgeInsets.only(top: medium)),
 
