@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import "package:perapal/components/total_fund.dart";
+import "package:perapal/components/cash_display.dart";
 import 'package:perapal/utils/style.dart';
-import 'package:perapal/components/budget/budget_view.dart';
+import 'package:perapal/components/dashboard/budget_view.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -13,7 +13,7 @@ class Dashboard extends StatelessWidget {
         padding: EdgeInsets.all(medium),
         child: Column(
           children: [
-            const TotalFund(),
+            const CashDisplay(expenseName: "Your Balance", cashValue: 50000.0),
             SizedBox(height: large),
               const BudgetView(),
             ]

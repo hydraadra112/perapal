@@ -2,54 +2,79 @@ import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 
 class BudgetBox extends StatelessWidget {
-  const BudgetBox({super.key});
+  final String budgetName;
+  final double budgetLimit;
+  final double amountSpent;
+
+  const BudgetBox({
+    super.key,
+    required this.budgetName,
+    required this.budgetLimit,
+    required this.amountSpent,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Add your desired action here when the box is clicked
-        // For now, do nothing
-      },
-      child: Padding(
-        padding: EdgeInsets.only(bottom: small),
-        child: Container(
-          decoration: BoxDecoration(
-              color: textLight, borderRadius: BorderRadius.circular(small)),
-          child: Padding(
-            padding: EdgeInsets.all(small),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: large,
-                      height: large,
-                      decoration: BoxDecoration(
-                          color: blueLight, shape: BoxShape.circle),
-                    ),
-                    SizedBox(
-                      width: small,
-                    ),
-                    Text(
-                      "Budget 1",
-                      style: heading4,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "amount remaining",
-                      style: p2,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+    // Calculate the amount remaining
+    double amountRemaining = budgetLimit - amountSpent;
+
+    // Calculate the percentage of budget spent
+    double percentageSpent = amountSpent / budgetLimit;
+
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: blue,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            budgetName,
+            style: heading1L.copyWith(fontSize: 25),
           ),
-        ),
+
+          const SizedBox(height: 5.0),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Limit: \$ ${budgetLimit.toStringAsFixed(2)}',
+                style: heading3L,
+              ),
+            ],
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Spent: \$ ${amountSpent.toStringAsFixed(2)}',
+                style: heading3L,
+              ),
+            ],
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Remaining: \$ ${amountRemaining.toStringAsFixed(2)}',
+                style: heading3L,
+              ),
+            ],
+          ),
+
+          // Progress Bar
+          const SizedBox(height: 10.0),
+          LinearProgressIndicator(
+            value: percentageSpent,
+            backgroundColor: Colors.grey[300],
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+          ),
+        ],
       ),
     );
   }

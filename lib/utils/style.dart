@@ -23,6 +23,8 @@ TextStyle heading2D = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textLight, fontSize: 18);
 TextStyle heading3 = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textDark, fontSize: 16);
+  TextStyle heading3L = GoogleFonts.poppins(
+  fontWeight: FontWeight.w600, color: textLight, fontSize: 16);
   TextStyle heading4 = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textDark, fontSize: 14);
 
