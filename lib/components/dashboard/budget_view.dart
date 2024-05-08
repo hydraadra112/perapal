@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 import './budget_box.dart'; // Import the BudgetBox widget
+import 'package:perapal/pages/budget_page.dart';
 
 class BudgetView extends StatelessWidget {
   const BudgetView({super.key});
@@ -18,9 +19,18 @@ class BudgetView extends StatelessWidget {
                 "Budgets",
                 style: heading1D,
               ),
-              Text(
+
+              TextButton(
+                  onPressed: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => Budget()),
+                    // );
+                  },
+                  child:Text(
                 "View more...",
                 style: p1,
+              ),
               ),
             ],
           ),
