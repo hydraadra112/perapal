@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 import './budget_box.dart'; // Import the BudgetBox widget
-import 'package:perapal/pages/budget_page.dart';
+// import 'package:perapal/pages/budget_page.dart';
 
 class BudgetView extends StatelessWidget {
   const BudgetView({super.key});
