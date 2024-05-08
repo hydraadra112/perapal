@@ -3,6 +3,8 @@ import '../main.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/input_box.dart';
 import 'package:perapal/components/button.dart'; // Import Button widget
+import 'terms_page.dart';
+
 
 class SignUpApp extends StatelessWidget {
   @override
@@ -181,8 +183,28 @@ class _SignUpPage extends State<SignUpPage> {
                     }
                   },
                 ),
-                
+                SizedBox(
+                  height: xsmall,
+                ),
+
                 TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>  const TermsAndConditions()),
+                    );
+                  },
+                  child: Text(
+                    "By siging up, you agree to the Terms of Service.",
+                    style: p2
+                  )               
+                ),
+                
+                SizedBox(
+                  height: large,
+                ),
+
+                 TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -196,7 +218,7 @@ class _SignUpPage extends State<SignUpPage> {
                       color: Color.fromARGB(255, 10, 10, 10),
                       decoration: TextDecoration.underline,
                     ),
-                  ),
+                  ),                  
                 ),
               ],
             ),

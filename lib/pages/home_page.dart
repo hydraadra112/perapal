@@ -46,11 +46,11 @@ const Savings(),
           ],
         ),
       ),
-      floatingActionButton: addButton(),
+      floatingActionButton: const addButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(30)
+          top: Radius.circular(medium)
      ),
       child: BottomNavigationBar(
         currentIndex: _selectedIndex,
