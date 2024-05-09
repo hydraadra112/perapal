@@ -41,7 +41,7 @@ const Savings(),
       body: SafeArea(
         child: Column(
           children: [
-            Header(),
+            const Header(),
             Expanded(child: _pages[_selectedIndex]), // Use Expanded to take remaining space
           ],
         ),

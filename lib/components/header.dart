@@ -26,7 +26,7 @@ class Header extends StatelessWidget {
           onPressed: () {
           Navigator.push(
             context,
-          MaterialPageRoute(builder: (context) => TermsAndConditions()),
+          MaterialPageRoute(builder: (context) => const TermsAndConditions()),
       );
     },
   ),
