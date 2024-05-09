@@ -4,7 +4,7 @@ import './pages/home_page.dart';
 import './pages/sign_up.dart';
 import './utils/style.dart';
 import 'package:perapal/components/input_box.dart';
-import 'package:perapal/components/button.dart'; // Import LoginButton widget
+import 'package:perapal/components/button.dart';
 
 void main() {
   debugPaintSizeEnabled = false;

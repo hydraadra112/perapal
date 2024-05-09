@@ -10,21 +10,21 @@ class AddingPage extends StatelessWidget {
         child: ListView(
           children: [
             ElevatedButton.icon(
-              icon: Icon(Icons.attach_money), 
+              icon: const Icon(Icons.attach_money), 
               onPressed: () {  }, 
-              label: Text("Add expense")
+              label: const Text("Add expense")
               ),
 
             ElevatedButton.icon(
-              icon: Icon(Icons.wallet), 
+              icon: const Icon(Icons.wallet), 
               onPressed: () {  }, 
-              label: Text("Add budget")
+              label: const Text("Add budget")
               ),
 
             ElevatedButton.icon(
-              icon: Icon(Icons.house), 
+              icon: const Icon(Icons.house), 
               onPressed: () {  }, 
-              label: Text("Add savings")
+              label: const Text("Add savings")
               ),              
           ]
           ,)
