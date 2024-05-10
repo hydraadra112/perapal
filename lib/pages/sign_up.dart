@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/input_box.dart';
 import 'package:perapal/components/button.dart'; // Import Button widget
 import 'terms_page.dart';
+import './login.dart';
 
 
 class SignUpApp extends StatelessWidget {
+  const SignUpApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SignUpPage(),
     );
@@ -17,6 +19,8 @@ class SignUpApp extends StatelessWidget {
 }
 
 class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
   @override
   _SignUpPage createState() => _SignUpPage();
 }
@@ -180,7 +184,7 @@ class _SignUpPage extends State<SignUpPage> {
                         // Redirect to LoginPageApp
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          MaterialPageRoute(builder: (context) => const LoginPage()),
                         );
                       }
                     },
@@ -210,7 +214,7 @@ class _SignUpPage extends State<SignUpPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
                       );
                     },
                     child: const Text(
