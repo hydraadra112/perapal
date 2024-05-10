@@ -1,7 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:perapal/main.dart';
-// import 'package:perapal/assets/DSC02460';
+import 'package:perapal/pages/onboarding.dart';
 
 class Splash extends StatelessWidget {
   const Splash({super.key});
@@ -9,11 +8,10 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      splash: "assets/DSC02460.png",
-      nextScreen: LoginApp(),
+      splash: 'assets/logo.png',  
+      nextScreen: const Onboarding(),
       splashTransition: SplashTransition.fadeTransition,
-      duration: 1500,
-      // pageTransitionType: PageTransitionEvent(type),
+      duration: 5000,
       );
       
   }
