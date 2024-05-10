@@ -36,10 +36,10 @@ class _SignUpPage extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(medium),
+        padding: EdgeInsets.only(top: medium),
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 0),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

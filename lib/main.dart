@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:perapal/pages/splash_screen.dart';
 
-
 void main() {
   debugPaintSizeEnabled = false;
   runApp(const LoginApp());

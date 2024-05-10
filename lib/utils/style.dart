@@ -35,6 +35,8 @@ TextStyle p1 = GoogleFonts.poppins(
   color: textDark, fontSize: 14);
 TextStyle p2 = GoogleFonts.poppins(
   color: textDark, fontSize: 12);
+TextStyle p3 = GoogleFonts.poppins(
+  color: textDark, fontSize: 10);  
 
 //Gaps
 var large = 50.0;
