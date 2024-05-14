@@ -3,14 +3,20 @@ import 'package:perapal/components/cash_display.dart';
 import 'package:perapal/components/savings/savings_box.dart';
 import 'package:perapal/utils/style.dart';
 
-class Savings extends StatelessWidget {
-  Savings({super.key});
 
+class Savings extends StatefulWidget {
+  const Savings({Key? key}) : super(key: key);
+
+  @override
+  _SavingsState createState() => _SavingsState();
+}
+
+class _SavingsState extends State<Savings> {
   // List of savings goals
   final List<Map<String, dynamic>> savingsGoals = [
-    {'name': 'Car', 'goalAmount': 600000, 'savedAmount': 8000},
-    {'name': 'PhilHealth', 'goalAmount': 250000, 'savedAmount': 42350},
-    {'name': 'Hobby', 'goalAmount': 25000, 'savedAmount': 20350},
+    {'name': 'Car', 'goalAmount': 600000.0, 'savedAmount': 8000.0},
+    {'name': 'PhilHealth', 'goalAmount': 250000.0, 'savedAmount': 42350.0},
+    {'name': 'Hobby', 'goalAmount': 25000.0, 'savedAmount': 20350.0},
     // Add more savings goals here
   ];
 
@@ -50,7 +56,8 @@ class Savings extends StatelessWidget {
                 ),
               ),
               
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 20),
+              
               // Iterate over the list and create SavingsBox for each item
               for (var goal in savingsGoals)
                 Padding(

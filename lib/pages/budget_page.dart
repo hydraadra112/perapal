@@ -1,4 +1,3 @@
-// budget_page.dart
 import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/budget/budget_box.dart';
@@ -13,7 +12,7 @@ class Budget extends StatefulWidget {
 
 class _BudgetState extends State<Budget> {
   // List to store budget data
-  List<Map<String, dynamic>> budgets = [
+  final List<Map<String, dynamic>> budgets = [
     {'name': 'Groceries', 'limit': 500.0, 'spent': 350.0},
     {'name': 'Entertainment', 'limit': 200.0, 'spent': 150.0},
     {'name': 'Utilities', 'limit': 300.0, 'spent': 200.0},
@@ -38,7 +37,7 @@ class _BudgetState extends State<Budget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(padding: const EdgeInsets.only(top: 10)),
+            const Padding(padding: EdgeInsets.only(top: 10)),
 
             const Row(
               // Display Total widgets side by side
@@ -64,23 +63,37 @@ class _BudgetState extends State<Budget> {
 
             const SizedBox(height: 20.0),
 
-            // ListView.builder to dynamically build BudgetBox widgets
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: budgets.length,
-              itemBuilder: (context, index) {
-                final budget = budgets[index];
-                return BudgetBox(
+            // Iterate over the list and create BudgetBox for each item
+            for (var budget in budgets)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: BudgetBox(
                   budgetName: budget['name'],
                   budgetLimit: budget['limit'],
                   amountSpent: budget['spent'],
-                );
-              },
-            ),
+                ),
+              ),
+
+            const SizedBox(height: 20.0),
+
+          
           ],
         ),
       ),
     );
   }
 }
+
+
+/* 
+add new budget code
+ElevatedButton(
+              onPressed: () {
+                _addBudget('New Budget', 1000.0, 300.0);
+              },
+              child: const Text('Add New Budget'),
+            ),
+
+
+
+ */
