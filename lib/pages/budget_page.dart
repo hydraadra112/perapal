@@ -18,6 +18,41 @@ class _BudgetState extends State<Budget> {
     {'name': 'Utilities', 'limit': 300.0, 'spent': 200.0},
   ];
 
+  String _sortCriteria = 'name';
+  bool _isAscending = true;
+
+  void _sortBudgets() {
+    setState(() {
+      budgets.sort((a, b) {
+        int comparison;
+        switch (_sortCriteria) {
+          case 'name':
+            comparison = a['name'].compareTo(b['name']);
+            break;
+          case 'limit':
+            comparison = a['limit'].compareTo(b['limit']);
+            break;
+          case 'spent':
+            comparison = a['spent'].compareTo(b['spent']);
+            break;
+          default:
+            comparison = 0;
+        }
+        return _isAscending ? comparison : -comparison;
+      });
+    });
+  }
+
+  double get totalBudget => budgets.fold(0, (prev, budget) => prev + (budget['limit'] ?? 0));
+  double get totalSpent => budgets.fold(0, (prev, budget) => prev + (budget['spent'] ?? 0));
+  double get totalRemaining => totalBudget - totalSpent;
+
+  @override
+  void initState() {
+    super.initState();
+    _sortBudgets(); // Sort initially
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,26 +74,63 @@ class _BudgetState extends State<Budget> {
           children: [
             const Padding(padding: EdgeInsets.only(top: 10)),
 
-            const Row(
+            Row(
               // Display Total widgets side by side
               children: [
                 Expanded(
-                  child: CashDisplay(expenseName: "Total Budget", cashValue: 50000.0),
+                  child: CashDisplay(expenseName: "Total Spent", cashValue: totalBudget),
                 ),
-                SizedBox(width: 10), // Add space between widgets
+                const SizedBox(width: 10), // Add space between widgets
                 Expanded(
-                  child: CashDisplay(expenseName: "Total Remaining", cashValue: 50000.0),
+                  child: CashDisplay(expenseName: "Total Remaining", cashValue: totalRemaining),
                 ),
               ],
             ),
 
             const SizedBox(height: 25),
-            const Text(
-              'Budget Overview',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Budget Overview',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  children: [
+                    DropdownButton<String>(
+                      value: _sortCriteria,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _sortCriteria = newValue!;
+                          _sortBudgets();
+                        });
+                      },
+                      items: <String>['name', 'limit', 'spent']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value[0].toUpperCase() + value.substring(1)),
+                        );
+                      }).toList(),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        _isAscending ? Icons.arrow_upward : Icons.arrow_downward,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isAscending = !_isAscending;
+                          _sortBudgets();
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
 
             const SizedBox(height: 20.0),
@@ -76,24 +148,22 @@ class _BudgetState extends State<Budget> {
 
             const SizedBox(height: 20.0),
 
-          
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  budgets.add({
+                    'name': 'New Budget',
+                    'limit': 1000.0,
+                    'spent': 300.0,
+                  });
+                  _sortBudgets(); // Sort after adding new budget
+                });
+              },
+              child: const Text('Add New Budget'),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-
-/* 
-add new budget code
-ElevatedButton(
-              onPressed: () {
-                _addBudget('New Budget', 1000.0, 300.0);
-              },
-              child: const Text('Add New Budget'),
-            ),
-
-
-
- */
