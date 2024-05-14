@@ -3,20 +3,20 @@ import 'package:perapal/utils/style.dart';
 
 class SavingsBox extends StatelessWidget {
   final String goalName;
-  final double goalAmount;
-  final double savedAmount;
+  final num goalAmount;
+  final num savedAmount;
 
   const SavingsBox({
-    super.key,
+    Key? key,
     required this.goalName,
     required this.goalAmount,
     required this.savedAmount,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Calculate the amount remaining
-    double remainingAmount = goalAmount - savedAmount;
+    num remainingAmount = goalAmount - savedAmount;
 
     // Calculate the percentage of goal achieved
     double percentageAchieved = savedAmount / goalAmount;
@@ -39,7 +39,7 @@ class SavingsBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Goal: \$ ${goalAmount.toStringAsFixed(2)}',
+                'Goal: \$${goalAmount.toStringAsFixed(2)}',
                 style: heading3L.copyWith(color: textDark),
               ),
             ],
@@ -48,7 +48,7 @@ class SavingsBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Saved: \$ ${savedAmount.toStringAsFixed(2)}',
+                'Saved: \$${savedAmount.toStringAsFixed(2)}',
                 style: heading3L.copyWith(color: textDark),
               ),
             ],
@@ -57,7 +57,7 @@ class SavingsBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Remaining: \$ ${remainingAmount.toStringAsFixed(2)}',
+                'Remaining: \$${remainingAmount.toStringAsFixed(2)}',
                 style: heading3L.copyWith(color: textDark),
               ),
             ],
@@ -65,7 +65,7 @@ class SavingsBox extends StatelessWidget {
           // Progress Bar
           const SizedBox(height: 10.0),
           LinearProgressIndicator(
-            value: percentageAchieved,
+            value: percentageAchieved.toDouble(),
             backgroundColor: Colors.grey[300],
             valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
           ),

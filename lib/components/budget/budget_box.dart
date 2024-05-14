@@ -3,8 +3,8 @@ import 'package:perapal/utils/style.dart';
 
 class BudgetBox extends StatelessWidget {
   final String budgetName;
-  final double budgetLimit;
-  final double amountSpent;
+  final num budgetLimit;
+  final num amountSpent;
 
   const BudgetBox({
     super.key,
@@ -16,7 +16,7 @@ class BudgetBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Calculate the amount remaining
-    double amountRemaining = budgetLimit - amountSpent;
+    num amountRemaining = budgetLimit - amountSpent;
 
     // Calculate the percentage of budget spent
     double percentageSpent = amountSpent / budgetLimit;
@@ -28,6 +28,7 @@ class BudgetBox extends StatelessWidget {
         color: blue,
       ),
       child: Column(
+        
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
