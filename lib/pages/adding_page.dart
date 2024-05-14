@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:perapal/utils/style.dart';
 
 class AddingPage extends StatelessWidget {
   const AddingPage({super.key});
@@ -6,6 +7,7 @@ class AddingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: transparent,
       body: Center(
         child: ListView(
           children: [
