@@ -1,77 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 
-class BudgetBox extends StatelessWidget {
-  final String budgetName;
-  final num budgetLimit;
-  final num amountSpent;
+class SavingsBox extends StatelessWidget {
+  final String goalName;
+  final num goalAmount;
+  final num savedAmount;
 
-  const BudgetBox({
-    super.key,
-    required this.budgetName,
-    required this.budgetLimit,
-    required this.amountSpent,
-  });
+  const SavingsBox({
+    Key? key,
+    required this.goalName,
+    required this.goalAmount,
+    required this.savedAmount,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Calculate the amount remaining
-    num amountRemaining = budgetLimit - amountSpent;
+    num remainingAmount = goalAmount - savedAmount;
 
-    // Calculate the percentage of budget spent
-    double percentageSpent = amountSpent / budgetLimit;
+    // Calculate the percentage of goal achieved
+    double percentageAchieved = savedAmount / goalAmount;
 
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: blue,
+        color: yellow,
       ),
       child: Column(
-        
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            budgetName,
-            style: heading1L.copyWith(fontSize: 25),
+            goalName,
+            style: heading1L.copyWith(fontSize: 25, color: textDark),
           ),
-
           const SizedBox(height: 5.0),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Limit: \$ ${budgetLimit.toStringAsFixed(2)}',
-                style: heading3L,
+                'Goal: \$${goalAmount.toStringAsFixed(2)}',
+                style: heading3L.copyWith(color: textDark),
               ),
             ],
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Spent: \$ ${amountSpent.toStringAsFixed(2)}',
-                style: heading3L,
+                'Saved: \$${savedAmount.toStringAsFixed(2)}',
+                style: heading3L.copyWith(color: textDark),
               ),
             ],
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Remaining: \$ ${amountRemaining.toStringAsFixed(2)}',
-                style: heading3L,
+                'Remaining: \$${remainingAmount.toStringAsFixed(2)}',
+                style: heading3L.copyWith(color: textDark),
               ),
             ],
           ),
-
           // Progress Bar
           const SizedBox(height: 10.0),
           LinearProgressIndicator(
-            value: percentageSpent,
+            value: percentageAchieved.toDouble(),
             backgroundColor: Colors.grey[300],
             valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
           ),
