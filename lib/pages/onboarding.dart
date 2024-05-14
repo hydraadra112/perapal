@@ -3,10 +3,17 @@ import 'package:perapal/contents/contents.dart';
 import 'package:perapal/pages/login.dart';
 import 'package:perapal/utils/style.dart';
 
-class Onboarding extends StatelessWidget {
+class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
 
-@override
+  @override
+  State<Onboarding> createState() => _OnboardingState();
+}
+
+class _OnboardingState extends State<Onboarding> {
+int currentIndex = 0;
+
+  @override
 Widget build(BuildContext context) {
   return Scaffold(
     body: Column(
@@ -14,13 +21,19 @@ Widget build(BuildContext context) {
         Expanded(
           child: PageView.builder(
             itemCount: contents.length,
+            onPageChanged: (int index){
+              setState(() {
+                currentIndex = index;
+              });
+            },
             itemBuilder: (_, i) {
               return Padding(
-                padding: const EdgeInsets.all(50),
+                padding: EdgeInsets.all(small),
                 child: Column(
                   children: [
                     Image(image: AssetImage(contents[i].image), 
-                    height: 600,),
+                    height: 200,
+                    ),             
                     Text(contents[i].title)
                   ],
                 ),
@@ -28,6 +41,17 @@ Widget build(BuildContext context) {
             },
           ),
         ),
+        Container(
+          height: small,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: 
+                List.generate(
+                  contents.length, 
+                  (index) => buildDot(index, context)
+                  ) 
+          )
+          ),
         Container(
           height: large,
           margin: EdgeInsets.all(large),
@@ -47,5 +71,17 @@ Widget build(BuildContext context) {
       ],
     ),
   );
+}
+
+Container buildDot(int index, BuildContext context) {
+  return Container(
+                  height: 5,
+                  width: currentIndex == index ? 15:5,
+                  margin: const EdgeInsets.only(right: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(small),
+                    color: blue
+                  ),
+                );
 }
 }

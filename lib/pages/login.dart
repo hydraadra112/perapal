@@ -30,12 +30,9 @@ class _LoginPageState extends State<LoginPage> {
               "PeraPal",
               style: heading1D.copyWith(fontSize: 50),
             ),
-            const Text(
+            Text(
               "Your friendly budgeting assistance app",
-              style: TextStyle(
-                fontSize: 12,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
+              style: p2,
             ),
             const SizedBox(height: 35),
             const Padding(
