@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "68632017979",
+    "project_id": "perapal-b92ec",
+    "storage_bucket": "perapal-b92ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68632017979:android:e45f57fcd343affea1f01e",
+        "android_client_info": {
+          "package_name": "com.example.perapal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68632017979-vg1pv9hl42egm9qgaokp0oe0mfnuhsgm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWtvafZckJyh-tUp0M6IU2q3eQG_9JZnA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68632017979-vg1pv9hl42egm9qgaokp0oe0mfnuhsgm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "68632017979-lec26nr6qnf74epldli4j4k6antgi5vn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.perapal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

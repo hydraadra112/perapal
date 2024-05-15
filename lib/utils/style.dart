@@ -11,6 +11,7 @@ var yellow = const Color(0xffFED141);
 var yellowLight = const Color(0xffFFFF9F);
 var textLight = const Color(0xffF0F0F0);
 var textDark = const Color(0xfff262626);
+var transparent = const Color(0xff);
 
 // TextStyle
 TextStyle heading1L = GoogleFonts.poppins(
@@ -35,6 +36,8 @@ TextStyle p1 = GoogleFonts.poppins(
   color: textDark, fontSize: 14);
 TextStyle p2 = GoogleFonts.poppins(
   color: textDark, fontSize: 12);
+TextStyle p3 = GoogleFonts.poppins(
+  color: textDark, fontSize: 10);  
 
 //Gaps
 var large = 50.0;
