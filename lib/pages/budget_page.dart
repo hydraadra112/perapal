@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/budget/budget_box.dart';
 import 'package:perapal/components/cash_display.dart';
+import 'package:perapal/components/add_budget_savings_box.dart';
+import 'package:perapal/components/modify_budget_savings_box.dart';
 
 class Budget extends StatefulWidget {
-  const Budget({Key? key}) : super(key: key);
+  const Budget({super.key});
 
   @override
   _BudgetState createState() => _BudgetState();
@@ -53,6 +55,25 @@ class _BudgetState extends State<Budget> {
     _sortBudgets(); // Sort initially
   }
 
+  void _addBudget(String name, double limit, double spent) {
+    setState(() {
+      budgets.add({
+        'name': name,
+        'limit': limit,
+        'spent': spent,
+      });
+      _sortBudgets(); // Sort after adding new budget
+    });
+  }
+
+  void _modifyBudget(int index, double newLimit, double newSpent) {
+    setState(() {
+      budgets[index]['limit'] = newLimit;
+      budgets[index]['spent'] = newSpent;
+      _sortBudgets(); // Sort after modifying budget
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +99,7 @@ class _BudgetState extends State<Budget> {
               // Display Total widgets side by side
               children: [
                 Expanded(
-                  child: CashDisplay(expenseName: "Total Spent", cashValue: totalBudget),
+                  child: CashDisplay(expenseName: "Total Budget", cashValue: totalBudget),
                 ),
                 const SizedBox(width: 10), // Add space between widgets
                 Expanded(
@@ -136,29 +157,29 @@ class _BudgetState extends State<Budget> {
             const SizedBox(height: 20.0),
 
             // Iterate over the list and create BudgetBox for each item
-            for (var budget in budgets)
+            for (var i = 0; i < budgets.length; i++)
               Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
-                child: BudgetBox(
-                  budgetName: budget['name'],
-                  budgetLimit: budget['limit'],
-                  amountSpent: budget['spent'],
+                child: GestureDetector(
+                  onTap: () => showModifyBudgetDialog(
+                    context,
+                    budgets[i]['name'],
+                    budgets[i]['limit'],
+                    budgets[i]['spent'],
+                    (newLimit, newSpent) => _modifyBudget(i, newLimit, newSpent),
+                  ),
+                  child: BudgetBox(
+                    budgetName: budgets[i]['name'],
+                    budgetLimit: budgets[i]['limit'],
+                    amountSpent: budgets[i]['spent'],
+                  ),
                 ),
               ),
 
             const SizedBox(height: 20.0),
 
             ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  budgets.add({
-                    'name': 'New Budget',
-                    'limit': 1000.0,
-                    'spent': 300.0,
-                  });
-                  _sortBudgets(); // Sort after adding new budget
-                });
-              },
+              onPressed: () => showAddBudgetDialog(context, _addBudget),
               child: const Text('Add New Budget'),
             ),
           ],

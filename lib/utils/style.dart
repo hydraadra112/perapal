@@ -10,8 +10,9 @@ var white = const Color(0xffFFFFFF);
 var yellow = const Color(0xffFED141);
 var yellowLight = const Color(0xffFFFF9F);
 var textLight = const Color(0xffF0F0F0);
+// ignore: use_full_hex_values_for_flutter_colors
 var textDark = const Color(0xfff262626);
-var transparent = const Color(0xff);
+var transparent = const Color(0x000000ff);
 
 // TextStyle
 TextStyle heading1L = GoogleFonts.poppins(

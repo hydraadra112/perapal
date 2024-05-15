@@ -7,11 +7,11 @@ class SavingsBox extends StatelessWidget {
   final num savedAmount;
 
   const SavingsBox({
-    Key? key,
+    super.key,
     required this.goalName,
     required this.goalAmount,
     required this.savedAmount,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

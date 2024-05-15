@@ -18,12 +18,12 @@ class Button extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0), // Square shape
             ),
           ),
-          backgroundColor: MaterialStateProperty.all<Color>(blue), // Light blue background
+          backgroundColor: WidgetStateProperty.all<Color>(blue), // Light blue background
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 2),
