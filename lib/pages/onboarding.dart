@@ -41,7 +41,7 @@ Widget build(BuildContext context) {
             },
           ),
         ),
-        Container(
+        SizedBox(
           height: small,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
