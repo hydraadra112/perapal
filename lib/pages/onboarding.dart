@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:perapal/auth/auth.dart';
 import 'package:perapal/contents/contents.dart';
 import 'package:perapal/pages/login.dart';
 import 'package:perapal/utils/style.dart';

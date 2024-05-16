@@ -12,7 +12,7 @@ class Splash extends StatelessWidget {
       splash: 'assets/logo.png',  
       nextScreen: const AuthPage(),
       splashTransition: SplashTransition.fadeTransition,
-      duration: 5000,
+      duration: 1200,
       );
       
   }
