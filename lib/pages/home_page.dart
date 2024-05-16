@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:perapal/components/add_button.dart';
 import 'package:perapal/pages/dashboard.dart';
+import 'package:perapal/pages/login.dart';
+import 'package:perapal/pages/terms_page.dart';
 import 'package:perapal/utils/style.dart';
 import './budget_page.dart';
 import './expense_page.dart';
@@ -34,10 +37,38 @@ const Budget(),
 const Savings(),
 ];
 
+  void logout() {
+    FirebaseAuth.instance.signOut();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()));
+  }
+
 
  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.only(top: large),
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.document_scanner),
+              title: const Text('Terms and Conditions'),
+              onTap: () {
+                Navigator.push(
+                context,
+              MaterialPageRoute(builder: (context) => const TermsAndConditions()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Log out'),
+              onTap: logout
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [

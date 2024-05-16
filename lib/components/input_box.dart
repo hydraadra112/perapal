@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class CustomInputBox extends StatelessWidget {
   final String hintText;
   final bool obscureText;
-  final Function(String) onChanged;
+  final TextEditingController controller;
 
   const CustomInputBox({
     super.key,
     required this.hintText,
     required this.obscureText,
-    required this.onChanged,
+    required this.controller,
   });
 
   @override
@@ -23,12 +23,12 @@ class CustomInputBox extends StatelessWidget {
           fillColor: const Color.fromARGB(255, 231, 231, 231),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(5),
+              Radius.circular(12),
             ),
             borderSide: BorderSide.none,
           ),
         ),
-        onChanged: onChanged,
+        controller: controller,
         obscureText: obscureText,
       ),
     );

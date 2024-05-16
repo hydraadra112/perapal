@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:perapal/helper/helper_function.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/input_box.dart';
 import 'package:perapal/components/button.dart'; // Import Button widget
@@ -6,31 +8,48 @@ import 'terms_page.dart';
 import './login.dart';
 
 
-class SignUpApp extends StatelessWidget {
-  const SignUpApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
-    );
-  }
-}
-
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+   SignUpPage({super.key});
 
   @override
   _SignUpPage createState() => _SignUpPage();
 }
 
 class _SignUpPage extends State<SignUpPage> {
-  String username = "";
-  String password = "";
-  String name = "";
-  String email = "";
-  String rptpassword = "";
+
+final TextEditingController nameController = TextEditingController();
+final TextEditingController usernameController = TextEditingController();
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
+final TextEditingController rptpasswordController = TextEditingController();
+
+void signUpUser() async {
+  showDialog(context: context,
+   builder: (context) => const Center(
+    child: CircularProgressIndicator(),
+   ),
+   );
+
+   if (usernameController.text != rptpasswordController.text){
+    Navigator.pop(context);
+    displayMessageToUser("Passwords do not match", context);
+   }
+
+  else {
+    try {
+    UserCredential? userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailController.text, 
+      password: passwordController.text
+      );
+  Navigator.pop(context);
+  } on FirebaseAuthException catch (e) {
+    Navigator.pop(context);
+    displayMessageToUser(e.code, context);
+  }
+  }
+
+
+}
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +100,7 @@ class _SignUpPage extends State<SignUpPage> {
                   CustomInputBox(
                     hintText: 'Name',
                     obscureText: false,
-                    onChanged: (value) {
-                      setState(() {
-                        name = value;
-                      });
-                    },
+                    controller: nameController,
                   ),
         
         
@@ -93,11 +108,7 @@ class _SignUpPage extends State<SignUpPage> {
                   CustomInputBox(
                     hintText: 'Email',
                     obscureText: false,
-                    onChanged: (value) {
-                      setState(() {
-                        email = value;
-                      });
-                    },
+                    controller: emailController
                   ),
         
                   const SizedBox(height: 20),
@@ -105,89 +116,28 @@ class _SignUpPage extends State<SignUpPage> {
                   CustomInputBox(
                     hintText: 'Username',
                     obscureText: false,
-                    onChanged: (value) {
-                      setState(() {
-                        username = value;
-                      });
-                    },
+                    controller: usernameController
                   ),
                   const SizedBox(height: 5),
+
                   CustomInputBox(
                     hintText: 'Password',
                     obscureText: true,
-                    onChanged: (value) {
-                      setState(() {
-                        password = value;
-                      });
-                    },
+                    controller: passwordController
                   ),
                   const SizedBox(height: 5),
+
                   CustomInputBox(
                     hintText: 'Repeat Password',
                     obscureText: true,
-                    onChanged: (value) {
-                      setState(() {
-                        rptpassword = value;
-                      });
-                    },
+                    controller: rptpasswordController
                   ),
                   const SizedBox(height: 15),
                   
                   // Use the Button widget instead of ElevatedButton
                   Button(
                     buttonText: 'Sign Up',
-                    onPressed: () {
-                      if (name.isEmpty ||
-                          email.isEmpty ||
-                          username.isEmpty ||
-                          password.isEmpty ||
-                          rptpassword.isEmpty) {
-        
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Incomplete Fields'),
-                              content:
-                                  const Text('Please fill in all the fields.'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      } else if (password != rptpassword) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Password Mismatch'),
-                              content: const Text(
-                                  'The password and repeated password do not match.'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      } else {
-                        // Redirect to LoginPageApp
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const LoginPage()),
-                        );
-                      }
-                    },
+                    onPressed: signUpUser
                   ),
                   SizedBox(
                     height: xsmall,
