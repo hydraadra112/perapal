@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:perapal/helper/helper_function.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/input_box.dart';
 import 'package:perapal/components/button.dart'; // Import Button widget
 import 'terms_page.dart';
 import './login.dart';
+import 'package:perapal/firebase/authentication.dart'; // Import the authentication file
 
 
 class SignUpPage extends StatefulWidget {
@@ -23,33 +22,6 @@ final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 final TextEditingController rptpasswordController = TextEditingController();
 
-void signUpUser() async {
-  showDialog(context: context,
-   builder: (context) => const Center(
-    child: CircularProgressIndicator(),
-   ),
-   );
-
-   if (usernameController.text != rptpasswordController.text){
-    Navigator.pop(context);
-    displayMessageToUser("Passwords do not match", context);
-   }
-
-  else {
-    try {
-    UserCredential? userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: emailController.text, 
-      password: passwordController.text
-      );
-  Navigator.pop(context);
-  } on FirebaseAuthException catch (e) {
-    Navigator.pop(context);
-    displayMessageToUser(e.code, context);
-  }
-  }
-
-
-}
 
   @override
   Widget build(BuildContext context) {
@@ -136,9 +108,16 @@ void signUpUser() async {
                   
                   // Use the Button widget instead of ElevatedButton
                   Button(
-                    buttonText: 'Sign Up',
-                    onPressed: signUpUser
-                  ),
+                  buttonText: 'Sign Up',
+                  onPressed: () async {
+                    signUpUser(
+                    context,
+                    usernameController,
+                    emailController,
+                    passwordController,
+                    rptpasswordController);
+                  } 
+              ),
                   SizedBox(
                     height: xsmall,
                   ),
@@ -168,7 +147,7 @@ void signUpUser() async {
                       );
                     },
                     child: const Text(
-                      "Back to Login Page.",
+                      "Back to Login Page",
                       style: TextStyle(
                         fontSize: 12,
                         color: Color.fromARGB(255, 10, 10, 10),
