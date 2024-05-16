@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:perapal/pages/terms_page.dart';
 import 'package:perapal/utils/style.dart';
 
 

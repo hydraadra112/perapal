@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:perapal/components/input_box.dart';
 import 'package:perapal/components/button.dart';
-import 'package:perapal/pages/home_page.dart';
 import 'package:perapal/utils/style.dart';
 import './sign_up.dart';
-import 'package:perapal/helper/helper_function.dart';
+import 'package:perapal/firebase/authentication.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,33 +17,6 @@ class _LoginPageState extends State<LoginPage> {
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
-
-void loginUser() async {
-  showDialog(context: context, 
-  builder: (context) => const Center(
-    child: CircularProgressIndicator(),
-   ),
-   );
-
-  try {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text, 
-      password: passwordController.text);
-      
-    if (context.mounted) Navigator.pop(context);
-    Navigator.push(context, 
-    MaterialPageRoute<void>(
-      builder: (BuildContext context) => const HomePage())
-    );
-  } 
-
-  on FirebaseAuthException catch (e) {
-
-    Navigator.pop(context);
-    displayMessageToUser(e.code, context);
-  }
-  
-}
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +47,7 @@ void loginUser() async {
             ),
             
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: CustomInputBox(
                 hintText: 'Email',
                 obscureText: false,
@@ -110,10 +81,12 @@ void loginUser() async {
 
             Button(
               buttonText: 'Login', // Customize button text
-              onPressed: loginUser,
+              onPressed: () => loginUser(context, 
+                                        emailController,
+                                        passwordController),
             ),
             
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child: GestureDetector(
