@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:perapal/components/input_box.dart';
 import 'package:perapal/components/button.dart';
+import 'package:perapal/pages/home_page.dart';
 import 'package:perapal/utils/style.dart';
 import './sign_up.dart';
-import './home_page.dart';
+import 'package:perapal/helper/helper_function.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,10 +15,37 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String username = "";
-  String password = "";
-  String correctName = "admin";
-  String correctPass = "password";
+
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
+
+
+void loginUser() async {
+  showDialog(context: context, 
+  builder: (context) => const Center(
+    child: CircularProgressIndicator(),
+   ),
+   );
+
+  try {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text, 
+      password: passwordController.text);
+      
+    if (context.mounted) Navigator.pop(context);
+    Navigator.push(context, 
+    MaterialPageRoute<void>(
+      builder: (BuildContext context) => const HomePage())
+    );
+  } 
+
+  on FirebaseAuthException catch (e) {
+
+    Navigator.pop(context);
+    displayMessageToUser(e.code, context);
+  }
+  
+}
 
   @override
   Widget build(BuildContext context) {
@@ -46,17 +75,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             
-            
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
+              padding: EdgeInsets.symmetric(horizontal: 0),
               child: CustomInputBox(
-                hintText: 'Username',
+                hintText: 'Email',
                 obscureText: false,
-                onChanged: (value) {
-                  setState(() {
-                    username = value;
-                  });
-                },
+                controller: emailController,
               ),
             ),
             
@@ -67,11 +91,7 @@ class _LoginPageState extends State<LoginPage> {
               child: CustomInputBox(
                 hintText: 'Password',
                 obscureText: true,
-                onChanged: (value) {
-                  setState(() {
-                    password = value;
-                  });
-                },
+                controller: passwordController,
               ),
             ),
             
@@ -87,40 +107,13 @@ class _LoginPageState extends State<LoginPage> {
             
             
             const SizedBox(height: 20),
+
             Button(
               buttonText: 'Login', // Customize button text
-              onPressed: () {
-                if (username == correctName && password == correctPass) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    ),
-                  );
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Invalid Credentials"),
-                        content: const Text("Please enter correct username and password."),
-                        actions: [
-                          
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text("OK"),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
+              onPressed: loginUser,
             ),
             
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(top: 50),
               child: GestureDetector(
@@ -128,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SignUpPage(),
+                      builder: (context) => SignUpPage(),
                     ),
                   );
                 },
