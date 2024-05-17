@@ -5,6 +5,7 @@ import 'package:perapal/components/cash_display.dart';
 import 'package:perapal/components/add_budget_savings_box.dart';
 import 'package:perapal/components/modify_budget_savings_box.dart';
 import 'package:perapal/components/button.dart';
+import 'package:perapal/firebase/interactions.dart';
 
 class Budget extends StatefulWidget {
   const Budget({super.key});
@@ -15,14 +16,24 @@ class Budget extends StatefulWidget {
 
 class _BudgetState extends State<Budget> {
   // List to store budget data
-  final List<Map<String, dynamic>> budgets = [
-    {'name': 'Groceries', 'limit': 500.0, 'spent': 350.0},
-    {'name': 'Entertainment', 'limit': 200.0, 'spent': 150.0},
-    {'name': 'Utilities', 'limit': 300.0, 'spent': 200.0},
-  ];
+  List<Map<String, dynamic>> budgets = [];
 
   String _sortCriteria = 'name';
   bool _isAscending = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchBudget();
+  }
+
+  Future<void> fetchBudget() async {
+    final List<Map<String, dynamic>> fetchedBudgets = await iudBudget();
+    setState(() {
+      budgets = fetchedBudgets;
+      _sortBudgets(); // Sort initially after fetching
+    });
+  }
 
   void _sortBudgets() {
     setState(() {
@@ -49,12 +60,6 @@ class _BudgetState extends State<Budget> {
   double get totalBudget => budgets.fold(0, (prev, budget) => prev + (budget['limit'] ?? 0));
   double get totalSpent => budgets.fold(0, (prev, budget) => prev + (budget['spent'] ?? 0));
   double get totalRemaining => totalBudget - totalSpent;
-
-  @override
-  void initState() {
-    super.initState();
-    _sortBudgets(); // Sort initially
-  }
 
   void _addBudget(String name, double limit, double spent) {
     setState(() {
