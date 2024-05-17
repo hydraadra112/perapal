@@ -1,15 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:perapal/helper/helper_function.dart';
-import 'package:perapal/pages/home_page.dart';
 import 'package:perapal/pages/onboarding.dart';
+import 'package:perapal/firebase/interactions.dart'; // Import the interactions.dart file
+import 'package:perapal/pages/home_page.dart';
 
 Future<void> signUpUser(BuildContext context, 
     TextEditingController usernameController,
     TextEditingController emailController, 
     TextEditingController passwordController,
     TextEditingController rptpasswordController) async {
-      
+
   showDialog(
     context: context,
     builder: (context) => const Center(
@@ -17,24 +18,46 @@ Future<void> signUpUser(BuildContext context,
     ),
   );
 
-  if (passwordController.text != rptpasswordController.text) {
+  // Validate that none of the fields are empty
+  if (usernameController.text.isEmpty || 
+      emailController.text.isEmpty || 
+      passwordController.text.isEmpty || 
+      rptpasswordController.text.isEmpty) {
+    Navigator.pop(context);
+    displayMessageToUser("Every field should have an input", context);
+    return;
+  }
+
+  // Validate password length and complexity
+  String password = passwordController.text;
+  if (password.length < 8 || 
+      password.length > 32 || 
+      !RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,32}$').hasMatch(password)) {
+    Navigator.pop(context);
+    displayMessageToUser("Password must be 8-32 characters long, containing a mix of letters and numbers", context);
+    return;
+  }
+
+  if (password != rptpasswordController.text) {
     Navigator.pop(context);
     displayMessageToUser("Passwords do not match", context);
-  } else {
-    try {
-      UserCredential? userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      if (context.mounted) Navigator.pop(context);
-      Navigator.push(context, 
+    return;
+  }
+
+  try {
+    UserCredential? userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+    await addDefaultData(); // Call the addDefaultData function
+    if (context.mounted) Navigator.pop(context);
+    Navigator.push(context, 
       MaterialPageRoute<void>(
         builder: (BuildContext context) => const Onboarding())
     );
-    } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
-      displayMessageToUser(e.code, context);
-    }
+  } on FirebaseAuthException catch (e) {
+    Navigator.pop(context);
+    displayMessageToUser(e.code, context);
   }
 }
 

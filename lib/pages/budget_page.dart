@@ -4,6 +4,7 @@ import 'package:perapal/components/budget/budget_box.dart';
 import 'package:perapal/components/cash_display.dart';
 import 'package:perapal/components/add_budget_savings_box.dart';
 import 'package:perapal/components/modify_budget_savings_box.dart';
+import 'package:perapal/components/button.dart';
 
 class Budget extends StatefulWidget {
   const Budget({super.key});
@@ -178,9 +179,9 @@ class _BudgetState extends State<Budget> {
 
             const SizedBox(height: 20.0),
 
-            ElevatedButton(
+            Button(
               onPressed: () => showAddBudgetDialog(context, _addBudget),
-              child: const Text('Add New Budget'),
+              buttonText: 'Add New Budget',
             ),
           ],
         ),
