@@ -5,6 +5,7 @@ import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/add_budget_savings_box.dart';
 import 'package:perapal/components/modify_budget_savings_box.dart';
 import 'package:perapal/components/button.dart';
+import 'package:perapal/firebase/interactions.dart'; // Make sure this file contains the iudSavings() function
 
 class Savings extends StatefulWidget {
   const Savings({super.key});
@@ -15,14 +16,24 @@ class Savings extends StatefulWidget {
 
 class _SavingsState extends State<Savings> {
   // List of savings goals
-  final List<Map<String, dynamic>> savingsGoals = [
-    {'name': 'Car', 'goalAmount': 600000.0, 'savedAmount': 8000.0},
-    {'name': 'PhilHealth', 'goalAmount': 250000.0, 'savedAmount': 42350.0},
-    {'name': 'Hobby', 'goalAmount': 25000.0, 'savedAmount': 20350.0},
-  ];
+  List<Map<String, dynamic>> savingsGoals = [];
 
   String _sortCriteria = 'name';
   bool _isAscending = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSavingsGoals();
+  }
+
+  Future<void> fetchSavingsGoals() async {
+    final List<Map<String, dynamic>> fetchedSavingsGoals = await iudSavings();
+    setState(() {
+      savingsGoals = fetchedSavingsGoals;
+      _sortSavingsGoals(); // Sort initially after fetching
+    });
+  }
 
   double get totalSavedAmount =>
       savingsGoals.fold(0, (prev, goal) => prev + (goal['savedAmount'] ?? 0));
@@ -47,12 +58,6 @@ class _SavingsState extends State<Savings> {
         return _isAscending ? comparison : -comparison;
       });
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _sortSavingsGoals(); // Sort initially
   }
 
   void _addSavingsGoal(String name, double goalAmount, double savedAmount) {
@@ -174,9 +179,9 @@ class _SavingsState extends State<Savings> {
               const SizedBox(height: 20.0),
           
               Button(
-              onPressed: () => showAddBudgetDialog(context, _addSavingsGoal),
-              buttonText: 'Add New Savings',
-            ),
+                onPressed: () => showAddBudgetDialog(context, _addSavingsGoal),
+                buttonText: 'Add New Savings',
+              ),
             ],
           ),
         ),
