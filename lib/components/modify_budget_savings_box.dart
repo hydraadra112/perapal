@@ -6,7 +6,7 @@ Future<void> showModifyBudgetDialog(
   double initialLimit,
   double initialSpent,
   Function(double, double) onModify,
-) async {
+                                ) async {
   final TextEditingController limitController = TextEditingController(text: initialLimit.toString());
   final TextEditingController spentController = TextEditingController(text: initialSpent.toString());
 

@@ -5,7 +5,7 @@ import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/add_budget_savings_box.dart';
 import 'package:perapal/components/modify_budget_savings_box.dart';
 import 'package:perapal/components/button.dart';
-import 'package:perapal/firebase/interactions.dart'; // Make sure this file contains the iudSavings() function
+import 'package:perapal/firebase/interactions.dart';
 
 class Savings extends StatefulWidget {
   const Savings({super.key});
@@ -30,13 +30,17 @@ class _SavingsState extends State<Savings> {
   Future<void> fetchSavingsGoals() async {
     final List<Map<String, dynamic>> fetchedSavingsGoals = await iudSavings();
     setState(() {
-      savingsGoals = fetchedSavingsGoals;
+      savingsGoals = fetchedSavingsGoals.map((saving) => {
+        'name': saving['name'],
+        'goal': (saving['goal'] as num).toDouble(),
+        'saved': (saving['saved'] as num).toDouble(),
+      }).toList();
       _sortSavingsGoals(); // Sort initially after fetching
     });
   }
 
   double get totalSavedAmount =>
-      savingsGoals.fold(0, (prev, goal) => prev + (goal['savedAmount'] ?? 0));
+      savingsGoals.fold(0, (prev, goal) => prev + (goal['saved'] as num).toDouble());
 
   void _sortSavingsGoals() {
     setState(() {
@@ -46,11 +50,11 @@ class _SavingsState extends State<Savings> {
           case 'name':
             comparison = a['name'].compareTo(b['name']);
             break;
-          case 'goalAmount':
-            comparison = a['goalAmount'].compareTo(b['goalAmount']);
+          case 'goal':
+            comparison = a['goal'].compareTo(b['goal']);
             break;
-          case 'savedAmount':
-            comparison = a['savedAmount'].compareTo(b['savedAmount']);
+          case 'saved':
+            comparison = a['saved'].compareTo(b['saved']);
             break;
           default:
             comparison = 0;
@@ -64,8 +68,8 @@ class _SavingsState extends State<Savings> {
     setState(() {
       savingsGoals.add({
         'name': name,
-        'goalAmount': goalAmount,
-        'savedAmount': savedAmount,
+        'goal': goalAmount,
+        'saved': savedAmount,
       });
       _sortSavingsGoals(); // Sort after adding new savings goal
     });
@@ -73,8 +77,8 @@ class _SavingsState extends State<Savings> {
 
   void _modifySavingsGoal(int index, double newGoalAmount, double newSavedAmount) {
     setState(() {
-      savingsGoals[index]['goalAmount'] = newGoalAmount;
-      savingsGoals[index]['savedAmount'] = newSavedAmount;
+      savingsGoals[index]['goal'] = newGoalAmount;
+      savingsGoals[index]['saved'] = newSavedAmount;
       _sortSavingsGoals(); // Sort after modifying savings goal
     });
   }
@@ -130,7 +134,7 @@ class _SavingsState extends State<Savings> {
                             _sortSavingsGoals();
                           });
                         },
-                        items: <String>['name', 'goalAmount', 'savedAmount']
+                        items: <String>['name', 'goal', 'saved']
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -164,22 +168,22 @@ class _SavingsState extends State<Savings> {
                     onTap: () => showModifySavingsDialog(
                       context,
                       savingsGoals[i]['name'],
-                      savingsGoals[i]['goalAmount'],
-                      savingsGoals[i]['savedAmount'],
+                      savingsGoals[i]['goal'],
+                      savingsGoals[i]['saved'],
                       (newGoalAmount, newSavedAmount) => _modifySavingsGoal(i, newGoalAmount, newSavedAmount),
                     ),
                     child: SavingsBox(
                       goalName: savingsGoals[i]['name'],
-                      goalAmount: savingsGoals[i]['goalAmount'],
-                      savedAmount: savingsGoals[i]['savedAmount'],
+                      goalAmount: savingsGoals[i]['goal'],
+                      savedAmount: savingsGoals[i]['saved'],
                     ),
                   ),
                 ),
 
               const SizedBox(height: 20.0),
-          
+
               Button(
-                onPressed: () => showAddBudgetDialog(context, _addSavingsGoal),
+                onPressed: () => showAddSavingsDialog(context, _addSavingsGoal),
                 buttonText: 'Add New Savings',
               ),
             ],
