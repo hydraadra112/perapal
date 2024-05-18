@@ -3,8 +3,8 @@ import 'package:perapal/utils/style.dart';
 
 class SavingsBox extends StatelessWidget {
   final String goalName;
-  final num goalAmount;
-  final num savedAmount;
+  final double goalAmount;
+  final double savedAmount;
 
   const SavingsBox({
     super.key,
@@ -16,7 +16,7 @@ class SavingsBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Calculate the amount remaining
-    num remainingAmount = goalAmount - savedAmount;
+    double remainingAmount = goalAmount - savedAmount;
 
     // Calculate the percentage of goal achieved
     double percentageAchieved = savedAmount / goalAmount;

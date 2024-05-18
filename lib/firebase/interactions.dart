@@ -82,6 +82,7 @@ Future<List<Map<String, dynamic>>> iudBudget() async {
   }
 }
 
+
 Future<List<Map<String, dynamic>>> iudSavings() async {
   User? currentUser = FirebaseAuth.instance.currentUser;
   String? uid = currentUser?.uid;
@@ -102,7 +103,13 @@ Future<List<Map<String, dynamic>>> iudSavings() async {
       Map<String, dynamic>? data = docSnapshot.data() as Map<String, dynamic>?;
 
       if (data != null && data.containsKey('savings')) {
-        return parseSavings(data['savings']);
+        return (data['savings'] as List<dynamic>)
+            .map((item) => {
+              'name': item['name'],
+              'goal': item['goal'],
+              'saved': item['saved'],
+            })
+            .toList();
       } else {
         if (kDebugMode) {
           print('No savings data found for the current user.');
@@ -123,12 +130,70 @@ Future<List<Map<String, dynamic>>> iudSavings() async {
   }
 }
 
+Future<void> addBudget(String name, double limit, double spent) async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String? uid = currentUser?.uid;
 
+  if (uid == null) {
+    if (kDebugMode) {
+      print('No user is currently signed in.');
+    }
+    return;
+  }
 
+  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
 
+  try {
+    await userDoc.update({
+      'budgets': FieldValue.arrayUnion([
+        {
+          'name': name,
+          'limit': limit,
+          'spent': spent,
+        }
+      ])
+    });
+    if (kDebugMode) {
+      print('Budget added successfully.');
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error adding budget: $e');
+    }
+  }
+}
 
+Future<void> addSavingsGoal(String name, double goal, double saved) async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String? uid = currentUser?.uid;
 
+  if (uid == null) {
+    if (kDebugMode) {
+      print('No user is currently signed in.');
+    }
+    return;
+  }
 
+  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
 
+  try {
+    await userDoc.update({
+      'savings': FieldValue.arrayUnion([
+        {
+          'name': name,
+          'goal': goal,
+          'saved': saved,
+        }
+      ])
+    });
+    if (kDebugMode) {
+      print('Savings goal added successfully.');
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error adding savings goal: $e');
+    }
+  }
+}
 
 

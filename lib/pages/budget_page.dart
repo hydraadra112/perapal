@@ -30,7 +30,11 @@ class _BudgetState extends State<Budget> {
   Future<void> fetchBudget() async {
     final List<Map<String, dynamic>> fetchedBudgets = await iudBudget();
     setState(() {
-      budgets = fetchedBudgets;
+      budgets = fetchedBudgets.map((budget) => {
+        'name': budget['name'],
+        'limit': (budget['limit'] as num).toDouble(),
+        'spent': (budget['spent'] as num).toDouble(),
+      }).toList();
       _sortBudgets(); // Sort initially after fetching
     });
   }
@@ -57,8 +61,8 @@ class _BudgetState extends State<Budget> {
     });
   }
 
-  double get totalBudget => budgets.fold(0, (prev, budget) => prev + (budget['limit'] ?? 0));
-  double get totalSpent => budgets.fold(0, (prev, budget) => prev + (budget['spent'] ?? 0));
+  double get totalBudget => budgets.fold(0, (prev, budget) => prev + (budget['limit'] as num).toDouble());
+  double get totalSpent => budgets.fold(0, (prev, budget) => prev + (budget['spent'] as num).toDouble());
   double get totalRemaining => totalBudget - totalSpent;
 
   void _addBudget(String name, double limit, double spent) {
