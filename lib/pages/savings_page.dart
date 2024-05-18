@@ -79,7 +79,16 @@ class _SavingsState extends State<Savings> {
     setState(() {
       savingsGoals[index]['goal'] = newGoalAmount;
       savingsGoals[index]['saved'] = newSavedAmount;
+      modifySavings(savingsGoals[index]['name'], newGoalAmount, newSavedAmount);
       _sortSavingsGoals(); // Sort after modifying savings goal
+    });
+  }
+
+  void _deleteSavingsGoal(int index) async {
+    String goalName = savingsGoals[index]['name'];
+    await deleteSavingsGoal(goalName);
+    setState(() {
+      savingsGoals.removeAt(index);
     });
   }
 
@@ -164,19 +173,29 @@ class _SavingsState extends State<Savings> {
               for (var i = 0; i < savingsGoals.length; i++)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),
-                  child: GestureDetector(
-                    onTap: () => showModifySavingsDialog(
-                      context,
-                      savingsGoals[i]['name'],
-                      savingsGoals[i]['goal'],
-                      savingsGoals[i]['saved'],
-                      (newGoalAmount, newSavedAmount) => _modifySavingsGoal(i, newGoalAmount, newSavedAmount),
-                    ),
-                    child: SavingsBox(
-                      goalName: savingsGoals[i]['name'],
-                      goalAmount: savingsGoals[i]['goal'],
-                      savedAmount: savingsGoals[i]['saved'],
-                    ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => showModifySavingsDialog(
+                            context,
+                            savingsGoals[i]['name'],
+                            savingsGoals[i]['goal'],
+                            savingsGoals[i]['saved'],
+                            (newGoalAmount, newSavedAmount) => _modifySavingsGoal(i, newGoalAmount, newSavedAmount),
+                          ),
+                          child: SavingsBox(
+                            goalName: savingsGoals[i]['name'],
+                            goalAmount: savingsGoals[i]['goal'],
+                            savedAmount: savingsGoals[i]['saved'],
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () => _deleteSavingsGoal(i),
+                      ),
+                    ],
                   ),
                 ),
 

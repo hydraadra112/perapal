@@ -196,4 +196,177 @@ Future<void> addSavingsGoal(String name, double goal, double saved) async {
   }
 }
 
+Future<void> deleteBudget(String budgetName) async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String? uid = currentUser?.uid;
+
+  if (uid == null) {
+    if (kDebugMode) {
+      print('No user is currently signed in.');
+    }
+    return;
+  }
+
+  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+
+  try {
+    // Fetch the user's document
+    DocumentSnapshot snapshot = await userDoc.get();
+    List<dynamic> budgets = snapshot['budgets'];
+
+    // Find the budget to remove
+    var budgetToRemove = budgets.firstWhere((budget) => budget['name'] == budgetName, orElse: () => null);
+
+    if (budgetToRemove != null) {
+      // Remove the budget from the list
+      budgets.remove(budgetToRemove);
+
+      // Update the document with the modified budget list
+      await userDoc.update({'budgets': budgets});
+
+      if (kDebugMode) {
+        print('Budget deleted successfully.');
+      }
+    } else {
+      if (kDebugMode) {
+        print('Budget not found.');
+      }
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error deleting budget: $e');
+    }
+  }
+}
+
+Future<void> deleteSavingsGoal(String goalName) async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String? uid = currentUser?.uid;
+
+  if (uid == null) {
+    if (kDebugMode) {
+      print('No user is currently signed in.');
+    }
+    return;
+  }
+
+  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+
+  try {
+    // Fetch the user's document
+    DocumentSnapshot snapshot = await userDoc.get();
+    List<dynamic> savingsGoals = snapshot['savings'];
+
+    // Find the savings goal to remove
+    var goalToRemove = savingsGoals.firstWhere((goal) => goal['name'] == goalName, orElse: () => null);
+
+    if (goalToRemove != null) {
+      // Remove the savings goal from the list
+      savingsGoals.remove(goalToRemove);
+
+      // Update the document with the modified savings goals list
+      await userDoc.update({'savings': savingsGoals});
+
+      if (kDebugMode) {
+        print('Savings goal deleted successfully.');
+      }
+    } else {
+      if (kDebugMode) {
+        print('Savings goal not found.');
+      }
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error deleting savings goal: $e');
+    }
+  }
+}
+
+Future<void> modifyBudget(String budgetName, double newLimit, double newSpent) async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String? uid = currentUser?.uid;
+
+  if (uid == null) {
+    if (kDebugMode) {
+      print('No user is currently signed in.');
+    }
+    return;
+  }
+
+  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+
+  try {
+    // Fetch the user's document
+    DocumentSnapshot snapshot = await userDoc.get();
+    List<dynamic> budgets = snapshot['budgets'];
+
+    // Find the budget to modify
+    var budgetToModify = budgets.firstWhere((budget) => budget['name'] == budgetName, orElse: () => null);
+
+    if (budgetToModify != null) {
+      // Update the budget values
+      budgetToModify['limit'] = newLimit;
+      budgetToModify['spent'] = newSpent;
+
+      // Update the document with the modified budgets list
+      await userDoc.update({'budgets': budgets});
+
+      if (kDebugMode) {
+        print('Budget modified successfully.');
+      }
+    } else {
+      if (kDebugMode) {
+        print('Budget not found.');
+      }
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error modifying budget: $e');
+    }
+  }
+}
+
+Future<void> modifySavings(String savingName, double newGoal, double newSaved) async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String? uid = currentUser?.uid;
+
+  if (uid == null) {
+    if (kDebugMode) {
+      print('No user is currently signed in.');
+    }
+    return;
+  }
+
+  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+
+  try {
+    // Fetch the user's document
+    DocumentSnapshot snapshot = await userDoc.get();
+    List<dynamic> budgets = snapshot['savings'];
+
+    // Find the budget to modify
+    var savingsToModify = budgets.firstWhere((budget) => budget['name'] == savingName, orElse: () => null);
+
+    if (savingsToModify != null) {
+      // Update the budget values
+      savingsToModify['goal'] = newGoal;
+      savingsToModify['saved'] = newSaved;
+
+      // Update the document with the modified budgets list
+      await userDoc.update({'savings': budgets});
+
+      if (kDebugMode) {
+        print('Saving modified successfully.');
+      }
+    } else {
+      if (kDebugMode) {
+        print('Saving not found.');
+      }
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error modifying savings: $e');
+    }
+  }
+}
 
