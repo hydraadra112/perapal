@@ -122,8 +122,8 @@ final TextEditingController rptpasswordController = TextEditingController();
                     height: xsmall,
                   ),
         
-                  TextButton(
-                    onPressed: () {
+                  GestureDetector(
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) =>  const TermsAndConditions()),
@@ -139,15 +139,15 @@ final TextEditingController rptpasswordController = TextEditingController();
                     height: large,
                   ),
         
-                   TextButton(
-                    onPressed: () {
+                   GestureDetector(
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => const LoginPage()),
                       );
                     },
                     child: const Text(
-                      "Back to Login Page",
+                      "Already have an account? Back to log in",
                       style: TextStyle(
                         fontSize: 12,
                         color: Color.fromARGB(255, 10, 10, 10),
