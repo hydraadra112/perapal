@@ -80,7 +80,17 @@ class _BudgetState extends State<Budget> {
     setState(() {
       budgets[index]['limit'] = newLimit;
       budgets[index]['spent'] = newSpent;
+      String budgetName = budgets[index]['name'];
+      modifyBudget(budgetName, newLimit, newSpent);
       _sortBudgets(); // Sort after modifying budget
+    });
+  }
+
+  void _deleteBudget(int index) async {
+    String budgetName = budgets[index]['name'];
+    await deleteBudget(budgetName);
+    setState(() {
+      budgets.removeAt(index);
     });
   }
 
@@ -170,27 +180,41 @@ class _BudgetState extends State<Budget> {
             for (var i = 0; i < budgets.length; i++)
               Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
-                child: GestureDetector(
-                  onTap: () => showModifyBudgetDialog(
-                    context,
-                    budgets[i]['name'],
-                    budgets[i]['limit'],
-                    budgets[i]['spent'],
-                    (newLimit, newSpent) => _modifyBudget(i, newLimit, newSpent),
-                  ),
-                  child: BudgetBox(
-                    budgetName: budgets[i]['name'],
-                    budgetLimit: budgets[i]['limit'],
-                    amountSpent: budgets[i]['spent'],
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () => showModifyBudgetDialog(
+                          context,
+                          budgets[i]['name'],
+                          budgets[i]['limit'],
+                          budgets[i]['spent'],
+                          (newLimit, newSpent) => _modifyBudget(i, newLimit, newSpent),
+                        ),
+                        child: BudgetBox(
+                          budgetName: budgets[i]['name'],
+                          budgetLimit: budgets[i]['limit'],
+                          amountSpent: budgets[i]['spent'],
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () => _deleteBudget(i),
+                    ),
+                  ],
                 ),
               ),
 
             const SizedBox(height: 20.0),
-
-            Button(
-              onPressed: () => showAddBudgetDialog(context, _addBudget),
-              buttonText: 'Add New Budget',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Button(
+                  onPressed: () => showAddBudgetDialog(context, _addBudget),
+                  buttonText: 'Add New Budget',
+                ),
+              ],
             ),
           ],
         ),

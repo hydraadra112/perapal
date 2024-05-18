@@ -5,7 +5,6 @@ import 'package:perapal/components/input_box.dart';
 import 'package:perapal/helper/helper_function.dart';
 import 'package:perapal/pages/login.dart';
 import 'package:perapal/utils/style.dart';
-import 'package:provider/provider.dart';
 
 class ForgotPassword extends StatefulWidget {
  ForgotPassword({super.key});
