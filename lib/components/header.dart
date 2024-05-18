@@ -22,14 +22,3 @@ class Header extends StatelessWidget {
     );
   }
 }
-
-// IconButton(
-//           icon: const Icon(Icons.person_2),
-//           color: textDark,
-//           onPressed: () {
-//           Navigator.push(
-//             context,
-//           MaterialPageRoute(builder: (context) => const TermsAndConditions()),
-//       );
-//     },
-//   ),
