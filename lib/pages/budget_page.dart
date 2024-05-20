@@ -119,11 +119,21 @@ class _BudgetState extends State<Budget> {
               // Display Total widgets side by side
               children: [
                 Expanded(
-                  child: CashDisplay(expenseName: "Total Budget", cashValue: totalBudget),
-                ),
+                  child: CashDisplay(
+                    expenseName: "Total Budget", 
+                    cashValue: totalBudget,
+                    color: blue,
+                    style: heading2L,
+                    ),
+                  ),
                 const SizedBox(width: 10), // Add space between widgets
                 Expanded(
-                  child: CashDisplay(expenseName: "Total Remaining", cashValue: totalRemaining),
+                  child: CashDisplay(
+                    expenseName: "Total Remaining", 
+                    cashValue: totalRemaining, 
+                    color: blue ,
+                    style: heading2L,
+                    ),
                 ),
               ],
             ),

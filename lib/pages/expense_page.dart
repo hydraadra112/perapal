@@ -29,7 +29,12 @@ class Expenses extends StatelessWidget {
 
               Padding(padding: EdgeInsets.only(top: medium)),
 
-              const CashDisplay(expenseName: "Total Expenses", cashValue: 50000.0),
+             CashDisplay(
+              expenseName: "Total Expenses", 
+              cashValue: 50000.0,
+              color: red,
+              style: heading2L,
+              ),
 
               Padding(padding: EdgeInsets.only(top: medium)),
 
