@@ -13,7 +13,12 @@ class Dashboard extends StatelessWidget {
         padding: EdgeInsets.all(medium),
         child: Column(
           children: [
-            const CashDisplay(expenseName: "Your Balance", cashValue: 50000.0),
+             CashDisplay(
+              expenseName: "Your Balance", 
+              cashValue: 50000.0, 
+              color: blue,
+              style: heading2L,
+            ),
             SizedBox(height: large),
               const BudgetView(),
             ]

@@ -4,11 +4,15 @@ import 'package:perapal/utils/style.dart';
 class CashDisplay extends StatelessWidget {
   final String expenseName;
   final double cashValue;
+  final color ;
+  final style;
 
   const CashDisplay({
     super.key,
     required this.expenseName,
     required this.cashValue,
+    required this.color,
+    required this.style,
   });
 
   @override
@@ -26,7 +30,7 @@ class CashDisplay extends StatelessWidget {
           ), // Adjust the spacing between text and button
           Container(
             decoration: BoxDecoration(
-              color: blue,
+              color: color,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(15),
                 bottom: Radius.circular(15),
@@ -37,7 +41,7 @@ class CashDisplay extends StatelessWidget {
             child: Center(
               child: Text(
                 "₱ $cashValue",
-                style: heading2L,
+                style: style,
               ),
             ),
           ),

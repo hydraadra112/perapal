@@ -77,7 +77,7 @@ const Savings(),
           ],
         ),
       ),
-      floatingActionButton: const addButton(),
+      floatingActionButton:const AddButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.vertical(
