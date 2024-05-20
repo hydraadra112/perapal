@@ -28,7 +28,7 @@ class _SavingsState extends State<Savings> {
   }
 
   Future<void> fetchSavingsGoals() async {
-    final List<Map<String, dynamic>> fetchedSavingsGoals = await iudSavings();
+    final List<Map<String, dynamic>> fetchedSavingsGoals = await uidSavings();
     setState(() {
       savingsGoals = fetchedSavingsGoals.map((saving) => {
         'name': saving['name'],
@@ -118,7 +118,7 @@ class _SavingsState extends State<Savings> {
                 expenseName: "Total Savings",
                 cashValue: totalSavedAmount,
                 color: yellow,
-                style: heading2L,
+                style: heading2D,
               ),
 
               const Padding(padding: EdgeInsets.only(top: 30)),

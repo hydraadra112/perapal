@@ -7,7 +7,7 @@ import 'package:perapal/pages/login.dart';
 import 'package:perapal/utils/style.dart';
 
 class ForgotPassword extends StatefulWidget {
- ForgotPassword({super.key});
+ const ForgotPassword({super.key});
 
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
