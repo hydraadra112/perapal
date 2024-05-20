@@ -117,6 +117,8 @@ class _SavingsState extends State<Savings> {
               CashDisplay(
                 expenseName: "Total Savings",
                 cashValue: totalSavedAmount,
+                color: yellow,
+                style: heading2L,
               ),
 
               const Padding(padding: EdgeInsets.only(top: 30)),
