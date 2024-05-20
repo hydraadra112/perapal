@@ -79,7 +79,7 @@ final TextEditingController passwordController = TextEditingController();
                       GestureDetector(
                         onTap: () {
                           Navigator.push(context, 
-                          MaterialPageRoute(builder: (context) => ForgotPassword())
+                          MaterialPageRoute(builder: (context) => const ForgotPassword())
                           );
                         },
                         child: const Text(
@@ -112,7 +112,7 @@ final TextEditingController passwordController = TextEditingController();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SignUpPage(),
+                          builder: (context) => const SignUpPage(),
                         ),
                       );
                     },

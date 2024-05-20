@@ -41,12 +41,12 @@ Future<void> addDefaultData() async {
 }
 
 
-Future<List<Map<String, dynamic>>> iudBudget() async {
+Future<List<Map<String, dynamic>>> uidBudget() async {
   User? currentUser = FirebaseAuth.instance.currentUser;
   String? uid = currentUser?.uid;
 
   if (uid == null) {
-    if (kDebugMode) {
+    if (kDebugMode) { 
       print('No user is currently signed in.');
     }
     return [];
@@ -83,7 +83,7 @@ Future<List<Map<String, dynamic>>> iudBudget() async {
 }
 
 
-Future<List<Map<String, dynamic>>> iudSavings() async {
+Future<List<Map<String, dynamic>>> uidSavings() async {
   User? currentUser = FirebaseAuth.instance.currentUser;
   String? uid = currentUser?.uid;
 
@@ -282,50 +282,6 @@ Future<void> deleteSavingsGoal(String goalName) async {
   }
 }
 
-Future<void> modifyBudget(String budgetName, double newLimit, double newSpent) async {
-  User? currentUser = FirebaseAuth.instance.currentUser;
-  String? uid = currentUser?.uid;
-
-  if (uid == null) {
-    if (kDebugMode) {
-      print('No user is currently signed in.');
-    }
-    return;
-  }
-
-  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
-
-  try {
-    // Fetch the user's document
-    DocumentSnapshot snapshot = await userDoc.get();
-    List<dynamic> budgets = snapshot['budgets'];
-
-    // Find the budget to modify
-    var budgetToModify = budgets.firstWhere((budget) => budget['name'] == budgetName, orElse: () => null);
-
-    if (budgetToModify != null) {
-      // Update the budget values
-      budgetToModify['limit'] = newLimit;
-      budgetToModify['spent'] = newSpent;
-
-      // Update the document with the modified budgets list
-      await userDoc.update({'budgets': budgets});
-
-      if (kDebugMode) {
-        print('Budget modified successfully.');
-      }
-    } else {
-      if (kDebugMode) {
-        print('Budget not found.');
-      }
-    }
-  } catch (e) {
-    if (kDebugMode) {
-      print('Error modifying budget: $e');
-    }
-  }
-}
-
 Future<void> modifySavings(String savingName, double newGoal, double newSaved) async {
   User? currentUser = FirebaseAuth.instance.currentUser;
   String? uid = currentUser?.uid;
@@ -366,6 +322,158 @@ Future<void> modifySavings(String savingName, double newGoal, double newSaved) a
   } catch (e) {
     if (kDebugMode) {
       print('Error modifying savings: $e');
+    }
+  }
+}
+
+// interactions.dart
+
+Future<void> addExpense(String budgetName, double amount, String notes) async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String? uid = currentUser?.uid;
+
+  if (uid == null) {
+    if (kDebugMode) {
+      print('No user is currently signed in.');
+    }
+    return;
+  }
+
+  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+
+  try {
+    // Fetch the user's document
+    DocumentSnapshot snapshot = await userDoc.get();
+    List<dynamic> budgets = snapshot['budgets'];
+
+    // Find the budget to modify
+    var budgetToModify = budgets.firstWhere((budget) => budget['name'] == budgetName, orElse: () => null);
+
+    if (budgetToModify != null) {
+      // Update the spent amount
+      budgetToModify['spent'] += amount;
+
+      // Add the expense to the budget's expense list
+      if (budgetToModify['expenses'] == null) {
+        budgetToModify['expenses'] = [];
+      }
+      budgetToModify['expenses'].add({
+        'id': DateTime.now().millisecondsSinceEpoch.toString(),
+        'amount': amount,
+        'notes': notes,
+        'date': DateTime.now(),
+      });
+
+      // Update the document with the modified budgets list
+      await userDoc.update({'budgets': budgets});
+
+      if (kDebugMode) {
+        print('Expense added successfully.');
+      }
+    } else {
+      if (kDebugMode) {
+        print('Budget not found.');
+      }
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error adding expense: $e');
+    }
+  }
+}
+
+Future<List<Map<String, dynamic>>> fetchExpenses() async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String? uid = currentUser?.uid;
+
+  if (uid == null) {
+    if (kDebugMode) {
+      print('No user is currently signed in.');
+    }
+    return [];
+  }
+
+  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+
+  try {
+    DocumentSnapshot docSnapshot = await userDoc.get();
+
+    if (docSnapshot.exists) {
+      Map<String, dynamic>? data = docSnapshot.data() as Map<String, dynamic>?;
+
+      if (data != null && data.containsKey('budgets')) {
+        List<Map<String, dynamic>> expenses = [];
+        List<dynamic> budgets = data['budgets'];
+        for (var budget in budgets) {
+          if (budget.containsKey('expenses')) {
+            for (var expense in budget['expenses']) {
+              expenses.add({
+                'budgetName': budget['name'],
+                'id': expense['id'],
+                'amount': expense['amount'],
+                'notes': expense['notes'],
+                'date': expense['date'].toDate(),
+              });
+            }
+          }
+        }
+        return expenses;
+      } else {
+        if (kDebugMode) {
+          print('No budget data found for the current user.');
+        }
+        return [];
+      }
+    } else {
+      if (kDebugMode) {
+        print('No data found for the current user.');
+      }
+      return [];
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error fetching expenses: $e');
+    }
+    return [];
+  }
+}
+
+Future<void> deleteExpense(String expenseId) async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  String? uid = currentUser?.uid;
+
+  if (uid == null) {
+    if (kDebugMode) {
+      print('No user is currently signed in.');
+    }
+    return;
+  }
+
+  final DocumentReference userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+
+  try {
+    // Fetch the user's document
+    DocumentSnapshot snapshot = await userDoc.get();
+    List<dynamic> budgets = snapshot['budgets'];
+
+    for (var budget in budgets) {
+      var expenseToRemove = budget['expenses'].firstWhere((expense) => expense['id'] == expenseId, orElse: () => null);
+      if (expenseToRemove != null) {
+        budget['expenses'].remove(expenseToRemove);
+        budget['spent'] -= expenseToRemove['amount'];
+        await userDoc.update({'budgets': budgets});
+        if (kDebugMode) {
+          print('Expense deleted successfully.');
+        }
+        return;
+      }
+    }
+    if (kDebugMode) {
+      print('Expense not found.');
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error deleting expense: $e');
     }
   }
 }

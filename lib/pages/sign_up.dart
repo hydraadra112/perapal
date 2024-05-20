@@ -8,7 +8,7 @@ import 'package:perapal/firebase/authentication.dart'; // Import the authenticat
 
 
 class SignUpPage extends StatefulWidget {
-   SignUpPage({super.key});
+   const SignUpPage({super.key});
 
   @override
   _SignUpPage createState() => _SignUpPage();

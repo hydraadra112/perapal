@@ -3,7 +3,6 @@ import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/budget/budget_box.dart';
 import 'package:perapal/components/cash_display.dart';
 import 'package:perapal/components/add_budget_savings_box.dart';
-import 'package:perapal/components/modify_budget_savings_box.dart';
 import 'package:perapal/components/button.dart';
 import 'package:perapal/firebase/interactions.dart';
 
@@ -28,7 +27,7 @@ class _BudgetState extends State<Budget> {
   }
 
   Future<void> fetchBudget() async {
-    final List<Map<String, dynamic>> fetchedBudgets = await iudBudget();
+    final List<Map<String, dynamic>> fetchedBudgets = await uidBudget();
     setState(() {
       budgets = fetchedBudgets.map((budget) => {
         'name': budget['name'],
@@ -76,16 +75,6 @@ class _BudgetState extends State<Budget> {
     });
   }
 
-  void _modifyBudget(int index, double newLimit, double newSpent) {
-    setState(() {
-      budgets[index]['limit'] = newLimit;
-      budgets[index]['spent'] = newSpent;
-      String budgetName = budgets[index]['name'];
-      modifyBudget(budgetName, newLimit, newSpent);
-      _sortBudgets(); // Sort after modifying budget
-    });
-  }
-
   void _deleteBudget(int index) async {
     String budgetName = budgets[index]['name'];
     await deleteBudget(budgetName);
@@ -119,21 +108,11 @@ class _BudgetState extends State<Budget> {
               // Display Total widgets side by side
               children: [
                 Expanded(
-                  child: CashDisplay(
-                    expenseName: "Total Budget", 
-                    cashValue: totalBudget,
-                    color: blue,
-                    style: heading2L,
-                    ),
-                  ),
+                  child: CashDisplay(expenseName: "Total Budget", cashValue: totalBudget, color: blue, style: heading1L),
+                ),
                 const SizedBox(width: 10), // Add space between widgets
                 Expanded(
-                  child: CashDisplay(
-                    expenseName: "Total Remaining", 
-                    cashValue: totalRemaining, 
-                    color: blue ,
-                    style: heading2L,
-                    ),
+                  child: CashDisplay(expenseName: "Total Remaining", cashValue: totalRemaining, color: blue, style: heading1L),
                 ),
               ],
             ),
@@ -193,19 +172,10 @@ class _BudgetState extends State<Budget> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: GestureDetector(
-                        onTap: () => showModifyBudgetDialog(
-                          context,
-                          budgets[i]['name'],
-                          budgets[i]['limit'],
-                          budgets[i]['spent'],
-                          (newLimit, newSpent) => _modifyBudget(i, newLimit, newSpent),
-                        ),
-                        child: BudgetBox(
-                          budgetName: budgets[i]['name'],
-                          budgetLimit: budgets[i]['limit'],
-                          amountSpent: budgets[i]['spent'],
-                        ),
+                      child: BudgetBox(
+                        budgetName: budgets[i]['name'],
+                        budgetLimit: budgets[i]['limit'],
+                        amountSpent: budgets[i]['spent'],
                       ),
                     ),
                     IconButton(

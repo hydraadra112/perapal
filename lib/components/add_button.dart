@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+/* import 'package:flutter/widgets.dart';
 import 'package:perapal/components/add_budget_savings_box.dart';
-import 'package:perapal/pages/savings_page.dart';
+import 'package:perapal/pages/savings_page.dart'; */
 import 'package:perapal/utils/style.dart';
 
 class AddButton extends StatelessWidget {
@@ -59,13 +59,13 @@ class AddButton extends StatelessWidget {
                   FloatingActionButton(
                     onPressed: (){  
                     },
-                    child: Icon(Icons.money),
+                    child: const Icon(Icons.money),
                     ),
                     
                    FloatingActionButton(
                     onPressed: (){  
                     },
-                    child: Icon(Icons.wallet),
+                    child: const Icon(Icons.wallet),
                     ), 
                 ],
               ),
@@ -82,7 +82,7 @@ class AddButton extends StatelessWidget {
                 children: [
                   FloatingActionButton(
                     onPressed: () {} ,
-                    child: Icon(Icons.savings),
+                    child: const Icon(Icons.savings),
                   ),
                 ],
               ),
