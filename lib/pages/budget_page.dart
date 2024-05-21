@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:perapal/components/button.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/budget/budget_box.dart';
 import 'package:perapal/components/cash_display.dart';
-import 'package:perapal/components/add_budget_savings_box.dart';
-import 'package:perapal/components/button.dart';
 import 'package:perapal/firebase/interactions.dart';
+import 'package:perapal/components/dialogs.dart'; 
 
 class Budget extends StatefulWidget {
   const Budget({super.key});
@@ -14,9 +14,7 @@ class Budget extends StatefulWidget {
 }
 
 class _BudgetState extends State<Budget> {
-  // List to store budget data
   List<Map<String, dynamic>> budgets = [];
-
   String _sortCriteria = 'name';
   bool _isAscending = true;
 
@@ -153,6 +151,7 @@ class _BudgetState extends State<Budget> {
                       ),
                       onPressed: () {
                         setState(() {
+                          fetchBudget();
                           _isAscending = !_isAscending;
                           _sortBudgets();
                         });
@@ -186,16 +185,12 @@ class _BudgetState extends State<Budget> {
                 ),
               ),
 
-            const SizedBox(height: 20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Button(
-                  onPressed: () => showAddBudgetDialog(context, _addBudget),
-                  buttonText: 'Add New Budget',
-                ),
-              ],
-            ),
+              const SizedBox(height: 20.0),
+
+              Button(
+                onPressed: () => showAddBudgetDialog(context, _addBudget),
+                buttonText: 'Add New Budget',
+              ),
           ],
         ),
       ),
