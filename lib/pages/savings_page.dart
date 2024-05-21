@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:perapal/components/cash_display.dart';
 import 'package:perapal/components/savings/savings_box.dart';
 import 'package:perapal/utils/style.dart';
-import 'package:perapal/components/add_budget_savings_box.dart';
+import 'package:perapal/components/dialogs.dart';
 import 'package:perapal/components/modify_budget_savings_box.dart';
 import 'package:perapal/components/button.dart';
 import 'package:perapal/firebase/interactions.dart';

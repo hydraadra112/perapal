@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/button.dart';
 import 'package:perapal/firebase/interactions.dart';
+import 'package:perapal/components/dialogs.dart'; // Import the new dialog file
 
 class Expense extends StatefulWidget {
   const Expense({super.key});
@@ -56,100 +57,6 @@ class _ExpensePageState extends State<Expense> {
         return _isAscending ? comparison : -comparison;
       });
     });
-  }
-
-  Future<void> showAddExpenseDialog(BuildContext context, Function(String, double, String) addExpenseCallback) async {
-    final TextEditingController amountController = TextEditingController();
-    final TextEditingController notesController = TextEditingController();
-    List<Map<String, dynamic>> budgets = []; // Variable to store fetched budgets
-
-    // Fetch the budget names from Firestore
-    await uidBudget().then((value) {
-      setState(() {
-        budgets = value;
-      });
-    });
-
-    // If no budgets are fetched, display an error message and return
-    if (budgets.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('No budgets found'),
-            content: const Text('Please create a budget first.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-      return;
-    }
-
-    // Variable to store the selected budget name
-    String selectedBudgetName = budgets[0]['name'];
-
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Add Expense'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                DropdownButtonFormField(
-                  value: selectedBudgetName,
-                  items: budgets.map((budget) {
-                    return DropdownMenuItem(
-                      value: budget['name'],
-                      child: Text(budget['name']),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedBudgetName = value.toString();
-                    });
-                  },
-                ),
-                TextField(
-                  controller: amountController,
-                  decoration: const InputDecoration(hintText: 'Amount'),
-                  keyboardType: TextInputType.number,
-                ),
-                TextField(
-                  controller: notesController,
-                  decoration: const InputDecoration(hintText: 'Notes'),
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Add'),
-              onPressed: () {
-                final double amount = double.parse(amountController.text);
-                final String notes = notesController.text;
-                addExpenseCallback(selectedBudgetName, amount, notes);
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -239,14 +146,12 @@ class _ExpensePageState extends State<Expense> {
                       onPressed: () => _deleteExpense(expenses[i]['id']),
                     ),
                   ],
-                  
                 ),
               ),
-              
-              Button(
-                  onPressed: () => showAddExpenseDialog(context, _addExpense),
-                  buttonText: 'Add New Expense',
-                ),
+            Button(
+              onPressed: () => showAddExpenseDialog(context, _addExpense),
+              buttonText: 'Add New Expense',
+            ),
           ],
         ),
       ),

@@ -91,11 +91,3 @@ void loginUser(BuildContext context,
   }
   
 }
-
-/* 
-To use the IUD, use this code
- String? uid = Provider.of<AuthProvider>(context).uid;
-
- */
-
-
