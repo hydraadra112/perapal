@@ -108,22 +108,20 @@ class _SavingsState extends State<Savings> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(padding: EdgeInsets.only(top: 30)),
+              const Padding(padding: EdgeInsets.only(top: 10)),
 
               CashDisplay(
                 expenseName: "Total Savings",
                 cashValue: totalSavedAmount,
                 color: yellow,
-                style: heading2D,
+                style: heading1D,
               ),
 
-              const Padding(padding: EdgeInsets.only(top: 30)),
-
-              const SizedBox(height: 14),
+             SizedBox(height: medium),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
