@@ -56,13 +56,14 @@ class AddButton extends StatelessWidget {
                 FloatingActionButton(
                   onPressed: () async {
                     await showAddExpenseDialog(context, (String budgetName, double amount, String notes) async {
-                      await addExpense(budgetName, amount, notes); // Add expense to Firestore
+                      await addExpense(budgetName, amount, notes);
                     });
                   },
                   child: const Icon(Icons.money),
                 ),
                 FloatingActionButton(
                   onPressed: () async {
+                    Navigator.pop(context); 
                     await showAddBudgetDialog(context, (String name, double limit, double spent) async {
                       await addBudget(name, limit, spent);
                     });
@@ -83,6 +84,7 @@ class AddButton extends StatelessWidget {
               children: [
                 FloatingActionButton(
                   onPressed: () async {
+                    Navigator.pop(context);
                     await showAddSavingsDialog(context, (String name, double goal, double saved) async {
                       await addSavingsGoal(name, goal, saved);
                     });
