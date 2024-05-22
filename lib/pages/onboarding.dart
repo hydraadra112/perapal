@@ -18,6 +18,10 @@ Widget build(BuildContext context) {
   return Scaffold(
     body: Column(
       children: [
+        Padding(
+          padding:  EdgeInsets.all(large),
+          child: Text("PeraPal", style: heading1D.copyWith(fontSize: 50),),
+        ),
         Expanded(
           child: PageView.builder(
             itemCount: contents.length,
@@ -28,13 +32,18 @@ Widget build(BuildContext context) {
             },
             itemBuilder: (_, i) {
               return Padding(
-                padding: EdgeInsets.all(small),
+                padding: EdgeInsets.all(large),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+
                     Image(image: AssetImage(contents[i].image), 
                     height: 200,
                     ),             
-                    Text(contents[i].title)
+                    Text(contents[i].title, style: heading3,),
+                    SizedBox(height: small,),
+                    
+                    Text(contents[i].text, style: p1,)
                   ],
                 ),
               );

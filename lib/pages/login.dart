@@ -36,18 +36,15 @@ final TextEditingController passwordController = TextEditingController();
                   "Your friendly budgeting assistance app",
                   style: p2,
                 ),
-                const SizedBox(height: 35),
-                const Padding(
-                  padding: EdgeInsets.only(top: 0, bottom: 10),
-                  child: Text(
-                    "Log in",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                    ),
-                  ),
-                ),
+                 SizedBox(height: large),
+
+                 Text(
+                   "Log in",
+                   style: heading1D.copyWith(fontSize: 30)
+                 ),
                 
+                SizedBox(height: small),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: CustomInputBox(
@@ -82,17 +79,15 @@ final TextEditingController passwordController = TextEditingController();
                           MaterialPageRoute(builder: (context) => const ForgotPassword())
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           "Forgot Password?",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Color.fromARGB(255, 105, 105, 105),
+                          style: p2.copyWith(color: Colors.grey)
                           ),
-                        ),
+                          ),
+                         ],
                       ),
-                    ],
                   ),
-                ),
+                
                 
                 
                 const SizedBox(height: 20),
@@ -116,13 +111,9 @@ final TextEditingController passwordController = TextEditingController();
                         ),
                       );
                     },
-                    child: const Text(
+                    child:  Text(
                       "No account yet? Sign up.",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Color.fromARGB(255, 10, 10, 10),
-                        decoration: TextDecoration.underline,
-                      ),
+                      style: p2.copyWith(decoration: TextDecoration.underline)
                     ),
                   ),
                 )
