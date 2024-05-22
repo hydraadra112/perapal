@@ -7,6 +7,7 @@ class TermsAndConditions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: white,
