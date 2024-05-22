@@ -26,11 +26,15 @@ Future<void> showAddBudgetDialog(
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(hintText: 'Budget Limit'),
               ),
+
+/* 
               TextField(
                 controller: spentController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(hintText: 'Amount Spent'),
               ),
+
+ */
             ],
           ),
         ),
