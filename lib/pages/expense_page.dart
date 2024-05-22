@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:perapal/components/cash_display.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/button.dart';
 import 'package:perapal/firebase/interactions.dart';
@@ -59,6 +60,8 @@ class _ExpensePageState extends State<Expense> {
     });
   }
 
+  double get totalExpense => expenses.fold(0, (prev, budget) => prev + (budget['amount'] as num).toDouble());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,15 +73,26 @@ class _ExpensePageState extends State<Expense> {
           selectionColor: textDark,
         ),
         elevation: 0,
-        backgroundColor: blue,
+        backgroundColor: red,
         automaticallyImplyLeading: false,
       ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(padding: EdgeInsets.only(top: 10)),
+
+            CashDisplay(
+              expenseName: "Total Expenses", 
+              cashValue: totalExpense, 
+              color: red, 
+              style: heading1L
+              ),
+
+              SizedBox(height: medium,),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
