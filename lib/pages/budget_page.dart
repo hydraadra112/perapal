@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:perapal/components/button.dart';
+// import 'package:perapal/components/button.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/components/budget/budget_box.dart';
 import 'package:perapal/components/cash_display.dart';
 import 'package:perapal/firebase/interactions.dart';
-import 'package:perapal/components/dialogs.dart'; 
+// import 'package:perapal/components/dialogs.dart'; 
 
 class Budget extends StatefulWidget {
   const Budget({super.key});
@@ -62,6 +62,8 @@ class _BudgetState extends State<Budget> {
   double get totalSpent => budgets.fold(0, (prev, budget) => prev + (budget['spent'] as num).toDouble());
   double get totalRemaining => totalBudget - totalSpent;
 
+
+/* 
   void _addBudget(String name, double limit, double spent) {
     setState(() {
       budgets.add({
@@ -72,6 +74,8 @@ class _BudgetState extends State<Budget> {
       _sortBudgets(); // Sort after adding new budget
     });
   }
+
+   */
 
   void _deleteBudget(int index) async {
     String budgetName = budgets[index]['name'];

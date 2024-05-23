@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:perapal/components/cash_display.dart';
 import 'package:perapal/utils/style.dart';
-import 'package:perapal/components/button.dart';
+// import 'package:perapal/components/button.dart';
 import 'package:perapal/firebase/interactions.dart';
-import 'package:perapal/components/dialogs.dart'; // Import the new dialog file
+// import 'package:perapal/components/dialogs.dart'; // Import the new dialog file
 
 class Expense extends StatefulWidget {
-  const Expense({Key? key}) : super(key: key);
+  const Expense({super.key});
 
   @override
   _ExpensePageState createState() => _ExpensePageState();
@@ -29,12 +29,13 @@ class _ExpensePageState extends State<Expense> {
       expenses = fetchedExpenses;
     });
   }
-
+/* 
   void _addExpense(String budgetName, double amount, String notes, DateTime date) async {
     await addExpense(budgetName, amount, notes, date);
     fetchExpensesList();
   }
 
+ */ 
   void _deleteExpense(String expenseId) async {
     await deleteExpense(expenseId);
     fetchExpensesList();
@@ -148,7 +149,7 @@ class _ExpensePageState extends State<Expense> {
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Amount: \$${expenses[i]['amount']}'),
+                            Text('Amount: ₱${expenses[i]['amount']}'),
                             Text('Notes: ${expenses[i]['notes']}'),
                             Text('Date: ${expenses[i]['date']}'),
                           ],
