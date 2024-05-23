@@ -95,7 +95,7 @@ Widget build(BuildContext context) {
               ),
             ), 
             SizedBox(
-              height: small,
+              height: xsmall,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: 
@@ -120,7 +120,6 @@ Widget build(BuildContext context) {
                 child: Text("Get Started",
                 style: heading2L,)),
             ),
-            SizedBox(height: small,)
           ],
         ),
     ),
