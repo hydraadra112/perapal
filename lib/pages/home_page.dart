@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
 
 final List _pages = [
 
-Dashboard(),
+const Dashboard(),
 const Expense(),
 const Budget(),
 const Savings(),

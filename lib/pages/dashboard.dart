@@ -1,9 +1,11 @@
+// dashboard.dart
 import 'package:flutter/material.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/firebase/interactions.dart';
-import 'package:perapal/components/dashboard/budget_pie_chart.dart';
-import 'package:perapal/components/dashboard/savings_pie_chart.dart';
-import 'package:perapal/components/dashboard/expenses_bar_chart.dart';
+import 'package:perapal/components/dashboard/pie_charts/budget_pie_chart.dart';
+import 'package:perapal/components/dashboard/pie_charts/savings_pie_chart.dart';
+import 'package:perapal/components/dashboard/table/budget_table.dart';
+import 'package:perapal/components/dashboard/table/savings_table.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -82,55 +84,60 @@ class _DashboardState extends State<Dashboard> {
           child: Padding(
             padding: EdgeInsets.all(medium),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Budgets and Savings', style: heading2D),
-                SizedBox(height: medium),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 200, child: BudgetPieChart(budgets: budgets)),
-                          SizedBox(height: medium),
-                          Legend(items: budgets.map((budget) => '${budget['name']}: ${(budget['spent'] / budget['limit'] * 100).toStringAsFixed(2)}%').toList()),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: medium),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 200, child: SavingsPieChart(savings: savings)),
-                          SizedBox(height: medium),
-                          Legend(items: savings.map((saving) => '${saving['name']}: ${(saving['saved'] / saving['goal'] * 100).toStringAsFixed(2)}%').toList()),
-                        ],
-                      ),
-                    ),
-                  ],
+                Text('Budgets Summary', style: heading2D),
+                Center(
+                  child: SizedBox(
+                    height: 200,
+                    child: BudgetPieChart(budgets: budgets),
+                  ),
                 ),
+                SizedBox(height: small),
+                BudgetTable(budgets: budgets),
+                
                 SizedBox(height: medium),
-                Text('Expenses', style: heading2D),
-                SizedBox(height: 200, child: ExpensesBarChart(expenses: expenses)),
+
+                Text('Expenses Summary', style: heading2D),
+                for (var i = 0; i < (expenses.length < 4 ? expenses.length : 4); i++)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ListTile(
+                            title: Text(expenses[i]['budgetName']),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Amount: \$${expenses[i]['amount']}'),
+                                Text('Date: ${expenses[i]['date']}'),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                SizedBox(height: medium),
+                Text('Savings Summary', style: heading2D),
+                Center(
+                  child: SizedBox(
+                    height: 200,
+                    child: SavingsPieChart(savings: savings),
+                  ),
+                ),
+
+                SizedBox(height: small),
+                SavingsTable(savings: savings),
+
+                SizedBox(height: medium),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class Legend extends StatelessWidget {
-  final List<String> items;
-
-  const Legend({Key? key, required this.items}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: items.map((item) => Text(item, style: const TextStyle(fontSize: 14))).toList(),
     );
   }
 }
