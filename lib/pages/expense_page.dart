@@ -6,7 +6,7 @@ import 'package:perapal/firebase/interactions.dart';
 import 'package:perapal/components/dialogs.dart'; // Import the new dialog file
 
 class Expense extends StatefulWidget {
-  const Expense({super.key});
+  const Expense({Key? key}) : super(key: key);
 
   @override
   _ExpensePageState createState() => _ExpensePageState();
@@ -30,8 +30,8 @@ class _ExpensePageState extends State<Expense> {
     });
   }
 
-  void _addExpense(String budgetName, double amount, String notes) async {
-    await addExpense(budgetName, amount, notes);
+  void _addExpense(String budgetName, double amount, String notes, DateTime date) async {
+    await addExpense(budgetName, amount, notes, date);
     fetchExpensesList();
   }
 
@@ -76,7 +76,6 @@ class _ExpensePageState extends State<Expense> {
         backgroundColor: red,
         automaticallyImplyLeading: false,
       ),
-
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -85,13 +84,13 @@ class _ExpensePageState extends State<Expense> {
             const Padding(padding: EdgeInsets.only(top: 10)),
 
             CashDisplay(
-              expenseName: "Total Expenses", 
-              cashValue: totalExpense, 
-              color: red, 
-              style: heading1L
-              ),
+              expenseName: "Total Expenses",
+              cashValue: totalExpense,
+              color: red,
+              style: heading1L,
+            ),
 
-              SizedBox(height: medium,),
+            SizedBox(height: medium),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -162,10 +161,13 @@ class _ExpensePageState extends State<Expense> {
                   ],
                 ),
               ),
+/* 
             Button(
               onPressed: () => showAddExpenseDialog(context, _addExpense),
               buttonText: 'Add New Expense',
             ),
+
+ */            
           ],
         ),
       ),

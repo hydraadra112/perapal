@@ -186,11 +186,15 @@ class _BudgetState extends State<Budget> {
               ),
 
               const SizedBox(height: 20.0),
-
+              
+/* 
               Button(
                 onPressed: () => showAddBudgetDialog(context, _addBudget),
                 buttonText: 'Add New Budget',
               ),
+
+ */
+
           ],
         ),
       ),
