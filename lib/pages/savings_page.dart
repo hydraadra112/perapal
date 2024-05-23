@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:perapal/components/cash_display.dart';
 import 'package:perapal/components/savings/savings_box.dart';
 import 'package:perapal/utils/style.dart';
-import 'package:perapal/components/dialogs.dart';
 import 'package:perapal/components/modify_budget_savings_box.dart';
-import 'package:perapal/components/button.dart';
+// import 'package:perapal/components/button.dart';
 import 'package:perapal/firebase/interactions.dart';
 
 class Savings extends StatefulWidget {
@@ -64,6 +63,8 @@ class _SavingsState extends State<Savings> {
     });
   }
 
+
+/* 
   void _addSavingsGoal(String name, double goalAmount, double savedAmount) {
     setState(() {
       savingsGoals.add({
@@ -74,6 +75,8 @@ class _SavingsState extends State<Savings> {
       _sortSavingsGoals(); // Sort after adding new savings goal
     });
   }
+
+ */
 
   void _modifySavingsGoal(int index, double newGoalAmount, double newSavedAmount) {
     setState(() {

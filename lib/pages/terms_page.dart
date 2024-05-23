@@ -20,7 +20,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
   @override
   void initState() {
     super.initState();
-    terms = TermsEng();
+    terms = const TermsEng();
   }
 
   @override
@@ -47,9 +47,9 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                 setState(() {
                   dropdownValue = value!;
                   if (dropdownValue == 'US') {
-                    terms = TermsEng();
+                    terms = const TermsEng();
                   } else if (dropdownValue == 'PH') {
-                    terms = TermsPh();
+                    terms = const TermsPh();
                   }
                 });
               },
