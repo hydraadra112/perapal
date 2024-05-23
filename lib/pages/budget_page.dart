@@ -84,6 +84,7 @@ class _BudgetState extends State<Budget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
