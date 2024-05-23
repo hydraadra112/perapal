@@ -65,6 +65,7 @@ class _ExpensePageState extends State<Expense> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
