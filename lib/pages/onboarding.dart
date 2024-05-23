@@ -16,68 +16,71 @@ int currentIndex = 0;
   @override
 Widget build(BuildContext context) {
   return Scaffold(
-    body: Column(
-      children: [
-        Padding(
-          padding:  EdgeInsets.all(large),
-          child: Text("PeraPal", style: heading1D.copyWith(fontSize: 50),),
+    backgroundColor: white,
+    body: Expanded(
+        child: Column(
+          children: [
+            Padding(
+              padding:  EdgeInsets.only(top: large, bottom: large),
+              child: Text("PeraPal", style: heading1D.copyWith(fontSize: 50),),
+            ),
+            Expanded(
+              child: PageView.builder(
+                itemCount: contents.length,
+                onPageChanged: (int index){
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                itemBuilder: (_, i) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: large),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+        
+                        Image(image: AssetImage(contents[i].image), 
+                        height: 200,
+                        ),             
+                        Text(contents[i].title, style: heading3,),
+                        SizedBox(height: small,),
+                        
+                        Text(contents[i].text, style: p1,)
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              height: small,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: 
+                    List.generate(
+                      contents.length, 
+                      (index) => buildDot(index, context)
+                      ) 
+              )
+              ),
+            Container(
+              height: large,
+              margin: EdgeInsets.only(top: medium, bottom: large, left: large, right: large),
+              width: double.infinity,
+              child: FloatingActionButton(
+                backgroundColor: blue,
+                onPressed: (){
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => const LoginPage())
+                    );
+                },
+                child: Text("Get Started",
+                style: heading2L,)),
+                
+            )
+          ],
         ),
-        Expanded(
-          child: PageView.builder(
-            itemCount: contents.length,
-            onPageChanged: (int index){
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            itemBuilder: (_, i) {
-              return Padding(
-                padding: EdgeInsets.all(large),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-
-                    Image(image: AssetImage(contents[i].image), 
-                    height: 200,
-                    ),             
-                    Text(contents[i].title, style: heading3,),
-                    SizedBox(height: small,),
-                    
-                    Text(contents[i].text, style: p1,)
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          height: small,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: 
-                List.generate(
-                  contents.length, 
-                  (index) => buildDot(index, context)
-                  ) 
-          )
-          ),
-        Container(
-          height: large,
-          margin: EdgeInsets.all(large),
-          width: double.infinity,
-          child: FloatingActionButton(
-            backgroundColor: blue,
-            onPressed: (){
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const LoginPage())
-                );
-            },
-            child: Text("Get Started",
-            style: heading2L,)),
-            
-        )
-      ],
     ),
   );
 }
