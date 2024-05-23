@@ -42,6 +42,9 @@ TextStyle heading3 = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textLight, fontSize: 16);
   TextStyle heading4 = GoogleFonts.poppins(
   fontWeight: FontWeight.w600, color: textDark, fontSize: 14);
+  TextStyle heading4L = GoogleFonts.poppins(
+  fontWeight: FontWeight.w600, color: textLight, fontSize: 14);
+
 
 //Paragraph
 TextStyle pBold = GoogleFonts.poppins(

@@ -109,6 +109,10 @@ final TextEditingController rptpasswordController = TextEditingController();
                       emailController,
                       passwordController,
                       rptpasswordController);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  const LoginPage())
+                          );
                     } 
                 ),
                     SizedBox(
