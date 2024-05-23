@@ -43,10 +43,7 @@ final TextEditingController rptpasswordController = TextEditingController();
                     )
                     ),
           
-                    Text(
-                      "PeraPal",
-                      style: heading1D.copyWith(fontSize: 50),
-                    ),
+                  Image.asset('assets/logo1.png'),
               
                    Text(
                       "Your friendly budgeting assistance app",
@@ -63,28 +60,11 @@ final TextEditingController rptpasswordController = TextEditingController();
                     SizedBox(height: small),
                     
                     CustomInputBox(
-                      hintText: 'Name',
-                      obscureText: false,
-                      controller: nameController,
-                    ),
-          
-          
-                    const SizedBox(height: 5),
-                    CustomInputBox(
                       hintText: 'Email',
                       obscureText: false,
                       controller: emailController
                     ),
-          
-                    const SizedBox(height: 20),
-          
-                    CustomInputBox(
-                      hintText: 'Username',
-                      obscureText: false,
-                      controller: usernameController
-                    ),
                     const SizedBox(height: 5),
-          
                     CustomInputBox(
                       hintText: 'Password',
                       obscureText: true,

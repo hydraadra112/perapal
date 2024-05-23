@@ -95,6 +95,7 @@ class _SavingsState extends State<Savings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
