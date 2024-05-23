@@ -120,9 +120,10 @@ Future<void> showAddSavingsDialog(
   );
 }
 
-Future<void> showAddExpenseDialog(BuildContext context, Function(String, double, String) addExpenseCallback) async {
+Future<void> showAddExpenseDialog(BuildContext context, Function(String, double, String, DateTime) addExpenseCallback) async {
   final TextEditingController amountController = TextEditingController();
   final TextEditingController notesController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
   List<Map<String, dynamic>> budgets = []; // Variable to store fetched budgets
 
   // Fetch the budget names from Firestore
@@ -155,6 +156,9 @@ Future<void> showAddExpenseDialog(BuildContext context, Function(String, double,
   // Variable to store the selected budget name
   String selectedBudgetName = budgets[0]['name'];
 
+  // Variable to store the selected date
+  DateTime selectedDate = DateTime.now();
+
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -185,6 +189,24 @@ Future<void> showAddExpenseDialog(BuildContext context, Function(String, double,
                 controller: notesController,
                 decoration: const InputDecoration(hintText: 'Notes'),
               ),
+              TextField(
+                controller: dateController,
+                decoration: const InputDecoration(hintText: 'Date (optional, default is today)'),
+                readOnly: true,
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2101),
+                  );
+
+                  if (pickedDate != null) {
+                    selectedDate = pickedDate;
+                    dateController.text = "${pickedDate.toLocal()}".split(' ')[0];
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -198,10 +220,31 @@ Future<void> showAddExpenseDialog(BuildContext context, Function(String, double,
           TextButton(
             child: const Text('Add'),
             onPressed: () {
-              final double amount = double.parse(amountController.text);
+              final double amount = double.tryParse(amountController.text) ?? 0;
               final String notes = notesController.text;
-              addExpenseCallback(selectedBudgetName, amount, notes);
-              Navigator.of(context).pop();
+
+              if (amount < 1) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Invalid amount'),
+                      content: const Text('Please enter an amount of at least \$1.'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                addExpenseCallback(selectedBudgetName, amount, notes, selectedDate);
+                Navigator.of(context).pop();
+              }
             },
           ),
         ],
