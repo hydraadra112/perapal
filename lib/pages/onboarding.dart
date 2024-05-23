@@ -1,3 +1,4 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:perapal/contents/contents.dart';
 import 'package:perapal/pages/login.dart';
@@ -9,20 +10,61 @@ class Onboarding extends StatefulWidget {
   @override
   State<Onboarding> createState() => _OnboardingState();
 }
+const List<String> list = <String>['US', 'PH'];
 
 class _OnboardingState extends State<Onboarding> {
 int currentIndex = 0;
+ // Initialize contents with the default value
+
+  String dropdownValue = list.first;
 
   @override
 Widget build(BuildContext context) {
   return Scaffold(
+    appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: white,
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(small),
+            child: DropdownButton<String>(
+              value: dropdownValue,
+              icon: CountryFlag.fromCountryCode(
+                dropdownValue,
+                height: 25,
+                width: 25,
+                borderRadius: 30,
+              ),
+              elevation: 0,
+              style: pBold,
+              onChanged: (String? value) {
+                setState(() {
+                  dropdownValue = value!;
+                  if (dropdownValue == 'US') {
+                    contents = contentsEN;
+                  } else if (dropdownValue == 'PH') {
+                    contents = contentsPH;
+                  }
+                });
+              },
+              items: list.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      ),
     backgroundColor: white,
     body: Expanded(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding:  EdgeInsets.only(top: large, bottom: large),
-              child: Text("PeraPal", style: heading1D.copyWith(fontSize: 50),),
+              padding:  EdgeInsets.symmetric(horizontal: small, vertical: small),
+              child: Image.asset('assets/logo1.png'),
             ),
             Expanded(
               child: PageView.builder(
@@ -34,13 +76,13 @@ Widget build(BuildContext context) {
                 },
                 itemBuilder: (_, i) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: large),
+                    padding: EdgeInsets.symmetric(horizontal: large, vertical: 0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
         
                         Image(image: AssetImage(contents[i].image), 
-                        height: 200,
+                        height: double.parse(contents[i].size),
                         ),             
                         Text(contents[i].title, style: heading3,),
                         SizedBox(height: small,),
@@ -51,7 +93,7 @@ Widget build(BuildContext context) {
                   );
                 },
               ),
-            ),
+            ), 
             SizedBox(
               height: small,
               child: Row(
@@ -77,8 +119,8 @@ Widget build(BuildContext context) {
                 },
                 child: Text("Get Started",
                 style: heading2L,)),
-                
-            )
+            ),
+            SizedBox(height: small,)
           ],
         ),
     ),

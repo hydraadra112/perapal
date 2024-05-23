@@ -46,6 +46,7 @@ final emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(),
       body: Center(
         child: Column(

@@ -37,16 +37,12 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
               value: dropdownValue,
               icon: CountryFlag.fromCountryCode(
                 dropdownValue,
-                height: 30,
-                width: 30,
+                height: 25,
+                width: 25,
                 borderRadius: 30,
               ),
-              elevation: 16,
-              style: p1,
-              underline: Container(
-                height: 2,
-                color: white,
-              ),
+              elevation: 0,
+              style: pBold,
               onChanged: (String? value) {
                 setState(() {
                   dropdownValue = value!;
@@ -76,7 +72,6 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
                 child: Column(
                   children: [
                     terms?? Container()
-                    // Add r widgets here if needed
                   ],
                 ),
               ),

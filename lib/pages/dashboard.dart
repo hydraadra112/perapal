@@ -69,6 +69,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -77,7 +78,7 @@ class _DashboardState extends State<Dashboard> {
           selectionColor: textDark,
         ),
         elevation: 0,
-        backgroundColor: blue,
+        backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
       ),
       body: Center(

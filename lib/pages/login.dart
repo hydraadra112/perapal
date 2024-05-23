@@ -30,10 +30,7 @@ final TextEditingController passwordController = TextEditingController();
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "PeraPal",
-                    style: heading1D.copyWith(fontSize: 50),
-                  ),
+                  Image.asset('assets/logo1.png'),
                   Text(
                     "Your friendly budgeting assistance app",
                     style: p2,
