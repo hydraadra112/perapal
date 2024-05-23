@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:perapal/firebase/interactions.dart';
-
 Future<void> showAddBudgetDialog(
   BuildContext context,
   Function(String, double, double) onAdd,
@@ -26,15 +25,6 @@ Future<void> showAddBudgetDialog(
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(hintText: 'Budget Limit'),
               ),
-
-/* 
-              TextField(
-                controller: spentController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(hintText: 'Amount Spent'),
-              ),
-
- */
             ],
           ),
         ),
@@ -51,9 +41,48 @@ Future<void> showAddBudgetDialog(
               final String name = nameController.text;
               final double limit = double.tryParse(limitController.text) ?? 0;
               final double spent = double.tryParse(spentController.text) ?? 0;
-              onAdd(name, limit, spent);
-              await addBudget(name, limit, spent); // Add the budget to Firestore
-              Navigator.of(context).pop();
+
+              if (name.isEmpty) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Invalid Budget Name'),
+                      content: const Text('Please enter a valid budget name.'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else if (limit < 1) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Invalid Amount'),
+                      content: const Text('Please enter a valid amount (at least P1).'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                onAdd(name, limit, spent);
+                await addBudget(name, limit, spent); // Add the budget to Firestore
+                Navigator.of(context).pop();
+              }
             },
           ),
         ],
@@ -61,7 +90,6 @@ Future<void> showAddBudgetDialog(
     },
   );
 }
-
 
 Future<void> showAddSavingsDialog(
   BuildContext context,
@@ -109,9 +137,48 @@ Future<void> showAddSavingsDialog(
               final String name = nameController.text;
               final double goal = double.tryParse(goalController.text) ?? 0;
               final double saved = double.tryParse(savedController.text) ?? 0;
-              onAdd(name, goal, saved);
-              await addSavingsGoal(name, goal, saved);  // Add the savings goal to Firestore
-              Navigator.of(context).pop();
+
+              if (name.isEmpty) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Invalid Savings Name'),
+                      content: const Text('Please enter a valid savings name.'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else if (goal < 1) {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Invalid Amount'),
+                      content: const Text('Please enter a valid amount (at least P1) for the goal.'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                onAdd(name, goal, saved);
+                await addSavingsGoal(name, goal, saved);  // Add the savings goal to Firestore
+                Navigator.of(context).pop();
+              }
             },
           ),
         ],

@@ -200,11 +200,15 @@ class _SavingsState extends State<Savings> {
                 ),
 
               const SizedBox(height: 20.0),
+/* 
 
               Button(
                 onPressed: () => showAddSavingsDialog(context, _addSavingsGoal),
                 buttonText: 'Add New Savings',
               ),
+
+ */
+
             ],
           ),
         ),

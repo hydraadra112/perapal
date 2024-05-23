@@ -161,10 +161,13 @@ class _ExpensePageState extends State<Expense> {
                   ],
                 ),
               ),
+/* 
             Button(
               onPressed: () => showAddExpenseDialog(context, _addExpense),
               buttonText: 'Add New Expense',
             ),
+
+ */            
           ],
         ),
       ),
