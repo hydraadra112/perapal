@@ -15,17 +15,18 @@ class BudgetPieChart extends StatelessWidget {
         sections: budgets.asMap().entries.map((entry) {
           final int index = entry.key;
           final Map<String, dynamic> budget = entry.value;
-          final double spentPercentage = budget['spent'] / budget['limit'];
           return PieChartSectionData(
-            value: spentPercentage,
-            title: '${(spentPercentage * 100).toStringAsFixed(1)}%',
+            value: budget['limit'],
+            title: budget['name'],
             color: colorList[index],
+            titleStyle: heading4L,
+            radius: 80
           );
         }).toList(),
         sectionsSpace: 2,
-        centerSpaceRadius: 40,
+        centerSpaceRadius: medium,
+        titleSunbeamLayout: true
       ),
     );
   }
 }
-

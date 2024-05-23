@@ -1,5 +1,6 @@
 // dashboard.dart
 import 'package:flutter/material.dart';
+import 'package:perapal/components/dashboard/pie_charts/expense_pie.dart';
 import 'package:perapal/utils/style.dart';
 import 'package:perapal/firebase/interactions.dart';
 import 'package:perapal/components/dashboard/pie_charts/budget_pie_chart.dart';
@@ -87,18 +88,29 @@ class _DashboardState extends State<Dashboard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Budgets Summary', style: heading2D),
+                SizedBox(height: large),
                 Center(
                   child: SizedBox(
                     height: 200,
                     child: BudgetPieChart(budgets: budgets),
                   ),
                 ),
-                SizedBox(height: small),
+                SizedBox(height: medium),
                 BudgetTable(budgets: budgets),
                 
                 SizedBox(height: medium),
 
                 Text('Expenses Summary', style: heading2D),
+                SizedBox(height: large),
+                Center(
+                  child: SizedBox(
+                    height: 200,
+                    child: ExpensePieChart(budgets: budgets),
+                  ),
+                ),
+                SizedBox(height: medium),
+                
+                Text('Recent Expenses:', style: heading3),
                 for (var i = 0; i < (expenses.length < 4 ? expenses.length : 4); i++)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
@@ -122,14 +134,15 @@ class _DashboardState extends State<Dashboard> {
 
                 SizedBox(height: medium),
                 Text('Savings Summary', style: heading2D),
+                SizedBox(height: large),
                 Center(
                   child: SizedBox(
                     height: 200,
-                    child: SavingsPieChart(savings: savings),
+                    child: SavingsBarChart(savings: savings,),
                   ),
                 ),
 
-                SizedBox(height: small),
+                SizedBox(height: medium),
                 SavingsTable(savings: savings),
 
                 SizedBox(height: medium),
