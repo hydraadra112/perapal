@@ -48,7 +48,7 @@ class SavingsBarChart extends StatelessWidget {
         }).toList(),
         alignment: BarChartAlignment.spaceEvenly,
         barTouchData: BarTouchData(enabled: false),
-        gridData:  const FlGridData(show: false),
+        gridData: FlGridData(show: false),
         titlesData: FlTitlesData(
           show: true,
           bottomTitles: AxisTitles(
